@@ -1,0 +1,4 @@
+# ignore erything in .idea/
+measurements/*
+.idea/*
+utils/.idea/*

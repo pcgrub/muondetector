@@ -1,0 +1,74 @@
+/gps/pos/type Plane
+/gps/pos/shape Square
+/gps/pos/centre 0. 0. -170. cm
+/gps/pos/halfx 0.75 m
+/gps/pos/halfy 0.75 m
+/gps/ene/type Arb
+/gps/ene/diffspec 0
+/gps/hist/type arb
+/gps/hist/point 226.1939238 0.
+/gps/hist/point 318.0624013 25.0
+/gps/hist/point 413.7193386 30.4
+/gps/hist/point 560.0568642 31.6
+/gps/hist/point 707.9291569 30.1
+/gps/hist/point 856.5417043 28.9
+/gps/hist/point 1005.5663534 26.9
+/gps/hist/point 1204.6425574 24.0
+/gps/hist/point 1403.9813714 22.1
+/gps/hist/point 1603.4848584 18.9
+/gps/hist/point 2102.6563417 16.4
+/gps/hist/point 2941.8979743 11.8
+/gps/hist/point 4121.3545942 7.5
+/gps/hist/point 5501.0147874 4.51
+/gps/hist/point 7000.7973611 2.86
+/gps/hist/point 10000.558169 1.59
+/gps/hist/point 15500.3601149 0.698
+/gps/hist/point 23000.2426877 0.246
+/gps/hist/point 31100.17948 0.109
+/gps/hist/point 43600.1280238 0.047
+/gps/hist/point 61100.0913558 0.017
+/gps/hist/point 85600.0652085 0.0066
+/gps/hist/point 120000.046515 0.0026
+/gps/hist/inter Log
+/gps/ang/type user
+/gps/hist/type theta
+/gps/hist/point 0.0 0.
+/gps/hist/point 0.0339369576777 0.999712098359
+/gps/hist/point 0.0678739153553 0.997410874148
+/gps/hist/point 0.101810873033 0.992819023093
+/gps/hist/point 0.135747830711 0.985957691129
+/gps/hist/point 0.169684788388 0.976858475374
+/gps/hist/point 0.203621746066 0.965563278629
+/gps/hist/point 0.237558703744 0.952124116404
+/gps/hist/point 0.271495661421 0.936602877386
+/gps/hist/point 0.305432619099 0.919071038434
+/gps/hist/point 0.339369576777 0.89960933542
+/gps/hist/point 0.373306534454 0.878307391434
+/gps/hist/point 0.407243492132 0.855263304059
+/gps/hist/point 0.44118044981 0.830583193623
+/gps/hist/point 0.475117407487 0.804380714504
+/gps/hist/point 0.509054365165 0.776776531741
+/gps/hist/point 0.542991322843 0.747897765356
+/gps/hist/point 0.57692828052 0.717877404959
+/gps/hist/point 0.610865238198 0.686853697312
+/gps/hist/point 0.644802195876 0.654969509693
+/gps/hist/point 0.678739153553 0.622371671977
+/gps/hist/point 0.712676111231 0.589210300468
+/gps/hist/point 0.746613068909 0.555638106599
+/gps/hist/point 0.780550026586 0.521809693683
+/gps/hist/point 0.814486984264 0.487880844945
+/gps/hist/point 0.848423941942 0.454007806128
+/gps/hist/point 0.882360899619 0.420346565966
+/gps/hist/point 0.916297857297 0.387052137838
+/gps/hist/point 0.950234814975 0.354277845915
+/gps/hist/point 0.984171772652 0.322174619093
+/gps/hist/point 1.01810873033 0.290890295941
+/gps/hist/point 1.05204568801 0.260568943899
+/gps/hist/point 1.08598264569 0.231350195827
+/gps/hist/point 1.11991960336 0.203368606982
+/gps/hist/point 1.15385656104 0.176753035381
+/gps/hist/point 1.18779351872 0.151626048395
+/gps/hist/point 1.2217304764 0.128103358312
+/gps/hist/type phi
+/gps/hist/point 0. 0.
+/gps/hist/point 6.282 4.

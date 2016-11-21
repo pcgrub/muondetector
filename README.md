@@ -1,3 +1,2 @@
-# MuonDetector
+# myon-detector
 
-my Muon Detector
