@@ -151,10 +151,11 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                       false,         // no boolean operations
                       0,
                       checkOverlaps);            // its copy number
-    */
+
     // the physical volume for the "world" is always initialized in
     // the following manner:
-    G4VPhysicalVolume* worldPV
+    */
+     G4VPhysicalVolume* worldPV
             = new G4PVPlacement(
                     0,               // no rotation
                     G4ThreeVector(), // at (0,0,0)

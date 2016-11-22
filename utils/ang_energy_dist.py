@@ -13,7 +13,7 @@ def write_hist_file(bins, n, path):
     np.savetxt(path, output, delimiter=",", fmt="%7.5f", newline="\n")
 
 
-path = "/home/piet/Dokumente/measurements/atmo/10k/"
+path = "/home/piet/Dokumente/measurements/cali_conc/10m/"
 
 # read in data
 data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")

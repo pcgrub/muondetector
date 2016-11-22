@@ -46,8 +46,8 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
     // useful information of creation process, particle name and so on
 
     // also changed for testing purposes
-    //G4double orEn = track->GetVertexKineticEnergy();
-    G4double orEn = track->GetTotalEnergy();
+    G4double orEn = track->GetVertexKineticEnergy();
+    //G4double orEn = track->GetTotalEnergy();
 
     //
     const G4LogicalVolume* originvol = track->GetLogicalVolumeAtVertex();
@@ -81,7 +81,7 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
 
     //insert the hits of ScintHit type
     // changed for testing purpose:
-    if (/*name == "e+" || name == "e-" || name=="gamma" ||*/ name == "mu+" || name == "mu-") {
+    if (name == "e+" || name == "e-" || name=="gamma" || name == "mu+" || name == "mu-") {
         ScintHit *hit = new ScintHit(name, edep, origin, orEn, process, trackID, Momentum.z());
         hit->SetLogV(physical->GetLogicalVolume());
         hit->SetTime(preStepPoint->GetGlobalTime());

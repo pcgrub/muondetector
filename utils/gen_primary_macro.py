@@ -21,7 +21,7 @@ def write_energies(f, lower_limit,upper_limits, energies):
     f.write("/gps/hist/point " + str(lower_limit) + " 0.\n")
     for i, val in enumerate(energies):
         f.write("/gps/hist/point " + str(upper_limits[i]) + " " + str(val) + "\n")
-    f.write("/gps/hist/inter Exp\n")
+    f.write("/gps/hist/inter Lin\n")
 
 def write_to_text(path,low_an,ang_upper_limits, angles, low_e, e_upper_lims, energies):
     # open file to write to
@@ -32,9 +32,9 @@ def write_to_text(path,low_an,ang_upper_limits, angles, low_e, e_upper_lims, ene
     #f.write("/gps/position 0. 0. -170. cm\n")
     f.write("/gps/pos/type Plane\n")
     f.write("/gps/pos/shape Square\n")
-    f.write("/gps/pos/centre 0. 0. -170. cm\n")
-    f.write("/gps/pos/halfx 0.75 m\n")
-    f.write("/gps/pos/halfy 0.75 m\n")
+    f.write("/gps/pos/centre 0. 0. -1. cm\n")
+    f.write("/gps/pos/halfx 0.25 m\n")
+    f.write("/gps/pos/halfy 0.15 m\n")
     write_energies(f, low_e, e_upper_lims, energies)
     write_angles(f, low_an, ang_upper_limits, angles)
     f.close()
