@@ -1,8 +1,8 @@
 /gps/pos/type Plane
-/gps/pos/shape Square
-/gps/pos/centre 0. 0. -170. cm
-/gps/pos/halfx 0.75 m
-/gps/pos/halfy 0.75 m
+/gps/pos/shape Rectangle
+/gps/pos/centre 0. 0. -2. cm
+/gps/pos/halfx 0.25 m
+/gps/pos/halfy 0.15 m
 /gps/ene/type Arb
 /gps/ene/diffspec 0
 /gps/hist/type arb
@@ -29,7 +29,7 @@
 /gps/hist/point 61100.0913558 0.017
 /gps/hist/point 85600.0652085 0.0066
 /gps/hist/point 120000.046515 0.0026
-/gps/hist/inter Log
+/gps/hist/inter Exp
 /gps/ang/type user
 /gps/hist/type theta
 /gps/hist/point 0.0 0.

@@ -1,9 +1,9 @@
 # Defaults:
 #/run/verbose 1
 #/tracking/verbose 1
-/run/numberOfThreads 1
+/run/numberOfThreads 4
 /run/initialize
-/control/execute primary.mac
+/control/execute primary_conc.mac
 /run/beamOn 10000 
 #
 

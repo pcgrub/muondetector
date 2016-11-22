@@ -60,12 +60,6 @@ void MyonPrimaryGeneratorAction::GeneratePrimaries(G4Event* event) {
     else {particle=fAMuon;}
     fParticleGun->SetParticleDefinition(particle);
     particle->SetPDGStable(false);
-    G4ThreeVector mom = fParticleGun->GetParticleMomentumDirection();
-    G4double angle = std::acos(mom.z());
-    //G4cout << "tHETA: " <<angle  << G4endl;
-    // kinetic energy:
-    //G4double Ekin = 10000.*MeV;
-    //fParticleGun->SetParticleEnergy(Ekin);
 
     //beam angle (zenith)
     //G4double angle = 0.;

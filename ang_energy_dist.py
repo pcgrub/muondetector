@@ -10,10 +10,10 @@ def write_hist_file(bins, n, path):
     bin_size = (bins[1]-bins[0])
     bin_mid = bins[1:] - 0.5*bin_size
     output = np.column_stack((bins[:-1], bins[1:], bin_mid, n))
-    np.savetxt(path, output, delimiter=",", fmt="%7.5f", newline="\n")
+    np.savetxt(path, output, delimiter=",", fmt="%7.7f", newline="\n")
 
 
-path = "/home/piet/Dokumente/measurements/atmo/10k/"
+path = "/home/piet/Dokumente/measurements/atmo/1m/"
 
 # read in data
 data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")
@@ -23,15 +23,15 @@ data3 = np.genfromtxt(path+"muon_Hits_nt_data_t3.csv", delimiter=",")
 muon = np.concatenate((data0[data0[:, 5] > 2.], data1[data1[:, 5] > 2.], data2[data2[:, 5] > 2.],
                        data3[data3[:, 5] > 2.]))
 
-#print muon
+print muon
 #calculate theta from momentum's z-component
 z = muon[:, 8]
-theta = np.arccos(z)
-print z
+theta = np.arccos(-z)
+#print z
 
 #extract energy
 E = muon[:, 3]
-#print E
+print E
 
 #initialize plotting window
 fig = plt.figure()
@@ -58,8 +58,8 @@ ax2.set_ylabel("# of events")
 ax2.set_xscale('log')
 ax2.set_yscale('log')
 
-energy_file_path = "/home/piet/Dokumente/muondetector/utils/energy_calibration/conc_energy_cali.csv"
-anular_file_path = "/home/piet/Dokumente/muondetector/utils/energy_calibration/angular_cali.csv"
+energy_file_path = "/home/piet/Dokumente/myon-detector/utils/energy_calibration/conc_energy_cali.csv"
+anular_file_path = "/home/piet/Dokumente/myon-detector/utils/energy_calibration/angular_cali.csv"
 write_hist_file(bins, n, anular_file_path)
 write_hist_file(bins_2, n_2, energy_file_path)
 

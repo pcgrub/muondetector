@@ -47,6 +47,7 @@ set(_SCRIPTS
   vis.mac
   primary_atmo.mac
         primary_mono.mac
+        primary_conc.mac
   utils/gen_primary_macro.py
   )
 

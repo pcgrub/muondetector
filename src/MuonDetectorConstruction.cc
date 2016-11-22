@@ -51,7 +51,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
 
     // define polyvinyltoluene scintillator material:
     G4Material* scintillator = man->FindOrBuildMaterial("G4_PLASTIC_SC_VINYLTOLUENE");
-    G4Material* concrete = man->FindOrBuildMaterial("G4_CONCRETE");
+    //G4Material* concrete = man->FindOrBuildMaterial("G4_CONCRETE");
 
 
     G4bool checkOverlaps = true;
@@ -66,8 +66,8 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
     G4double PlattenDimZ = 1.0*cm;
 
     // the whole room is a cube for now:
-    G4double WorldDimX_Y = 200.0*cm;
-    G4double WorldDimZ = 400.0*cm;
+    G4double WorldDimX_Y = 70.0*cm;
+    G4double WorldDimZ = 70.0*cm;
 
     // every shape in this detector is a box shape
     // the different shaped boxes are initialized here
@@ -76,7 +76,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
     // shape of both the scintillator and the copper plates
     G4Box* common_shape = new G4Box("Platte", 0.5*PlattenDimX, 0.5*PlattenDimY, 0.5*PlattenDimZ);
 
-    G4Box* concrete_box = new G4Box("Betonform", 0.75*m, 0.75*m, 0.75*m);
+    //G4Box* concrete_box = new G4Box("Betonform", 0.75*m, 0.75*m, 0.75*m);
 
     // create a logical volume:
     // give the shape a material
@@ -87,7 +87,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
     ScintLog1 = new G4LogicalVolume(common_shape, scintillator, "Scint plate1");
     CopperLog = new G4LogicalVolume(common_shape, Cu, "Copper plate");
     ScintLog2 = new G4LogicalVolume(common_shape, scintillator, "Scint plate2");
-    G4LogicalVolume* ConcreteLog = new G4LogicalVolume(concrete_box, concrete,"concrete");
+    //G4LogicalVolume* ConcreteLog = new G4LogicalVolume(concrete_box, concrete,"concrete");
 
     // create a physical volume:
     // put your plate somewhere in the room(world):
@@ -141,7 +141,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
     // the physical volume for the "world" is always initialized in
     // the following manner:
 
-
+    /*
     new G4PVPlacement(0,              // no rotation
                       G4ThreeVector(posOVERALL_x, posOVERALL_y, -90.*cm),
             //translation
@@ -151,7 +151,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                       false,         // no boolean operations
                       0,
                       checkOverlaps);            // its copy number
-
+    */
     // the physical volume for the "world" is always initialized in
     // the following manner:
     G4VPhysicalVolume* worldPV

@@ -46,15 +46,15 @@ G4VPhysicalVolume*TestDetectorConstruction::Construct() {
     G4Material* concrete = man->FindOrBuildMaterial("G4_CONCRETE");
 
     // the whole room is a cube for now:
-    G4double WorldDimX_Y = 200.0*cm;
+    G4double WorldDimX_Y = 400.0*cm;
     G4double WorldDimZ = 400.0*cm;
 
     // every shape in this detector is a box shape
     // the different shaped boxes are initialized here
     G4Box* WorldBox = new G4Box("World", 0.5* WorldDimX_Y, 0.5* WorldDimX_Y, 0.5* WorldDimZ);
-    G4Box* concrete_box = new G4Box("Betonform", 0.75*m, 0.75*m, 0.75*m);
+    G4Box* concrete_box = new G4Box("Betonform", 1.5*m, 1.5*m, 0.75*m);
     //G4Sphere* angular_tube = new G4Sphere("Winkelkugel", 3.*cm, 8.*cm, 0.*deg, 360.*deg, 0.*deg, 180.*deg);
-    G4Box* concrete_detector_box = new G4Box("BetonDetektorform", 0.75*m, 0.75*m, 0.5*cm);
+    G4Box* concrete_detector_box = new G4Box("BetonDetektorform", 1.5*m, 1.5*m, 0.5*cm);
     // logical volumes for testing purposes
     G4LogicalVolume* WorldLog = new G4LogicalVolume(WorldBox, air, "World");
     G4LogicalVolume* ConcreteLog = new G4LogicalVolume(concrete_box, concrete,"concrete");

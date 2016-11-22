@@ -32,7 +32,7 @@
 /vis/viewer/set/viewpointThetaPhi 90. 0.
 #
 # Specify zoom value:
-/vis/viewer/zoom 2.
+#/vis/viewer/zoom 2.
 #
 # Specify style (surface or wireframe):
 #/vis/viewer/set/style wireframe
@@ -79,5 +79,5 @@
 # Set visualization to accumulate events into one picture
 #
 /vis/scene/endOfEventAction accumulate
-/control/execute primary.mac
+/control/execute primary_conc.mac
 /run/beamOn 1

@@ -21,7 +21,7 @@ def write_energies(f, lower_limit,upper_limits, energies):
     f.write("/gps/hist/point " + str(lower_limit) + " 0.\n")
     for i, val in enumerate(energies):
         f.write("/gps/hist/point " + str(upper_limits[i]) + " " + str(val) + "\n")
-    f.write("/gps/hist/inter Exp\n")
+    f.write("/gps/hist/inter Log\n")
 
 def write_to_text(path,low_an,ang_upper_limits, angles, low_e, e_upper_lims, energies):
     # open file to write to
