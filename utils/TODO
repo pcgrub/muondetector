@@ -1,11 +1,6 @@
-short term:
-
-right now:
-decay rates for capture: 13,8ns, other: 17ns
-time constants of decay and other 
-
-
-mid term:
+-fix energyspectrum for calibration
+-get decay constants
+-implement lower parts of the spectrum
 
 
 
