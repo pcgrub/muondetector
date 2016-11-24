@@ -16,7 +16,7 @@ def write_angles(f, lower_limit,upper_limits, angles):
 
 def write_energies(f, lower_limit,upper_limits, energies):
     f.write("/gps/ene/type Arb\n")
-    f.write("/gps/ene/diffspec 0\n")
+    f.write("/gps/ene/diffspec 1\n")
     f.write("/gps/hist/type arb\n")
     f.write("/gps/hist/point " + str(lower_limit) + " 0.\n")
     for i, val in enumerate(energies):

@@ -53,7 +53,7 @@ G4VPhysicalVolume*TestDetectorConstruction::Construct() {
     // the different shaped boxes are initialized here
     G4Box* WorldBox = new G4Box("World", 0.5* WorldDimX_Y, 0.5* WorldDimX_Y, 0.5* WorldDimZ);
     G4Box* concrete_box = new G4Box("Betonform", 1.5*m, 1.5*m, 0.75*m);
-    //G4Sphere* angular_tube = new G4Sphere("Winkelkugel", 3.*cm, 8.*cm, 0.*deg, 360.*deg, 0.*deg, 180.*deg);
+    G4Sphere* angular_tube = new G4Sphere("Winkelkugel", 5.*cm, 8.*cm, 0.*deg, 360.*deg, 0.*deg, 180.*deg);
     G4Box* concrete_detector_box = new G4Box("BetonDetektorform", 1.5*m, 1.5*m, 0.5*cm);
     // logical volumes for testing purposes
     G4LogicalVolume* WorldLog = new G4LogicalVolume(WorldBox, air, "World");
@@ -70,7 +70,7 @@ G4VPhysicalVolume*TestDetectorConstruction::Construct() {
                       false,         // no boolean operations
                       0,
                       checkOverlaps);
-
+/*
     new G4PVPlacement(0,              // no rotation
                       G4ThreeVector(0. , 0., -90.*cm),
             //translation
@@ -80,7 +80,7 @@ G4VPhysicalVolume*TestDetectorConstruction::Construct() {
                       false,         // no boolean operations
                       0,
                       checkOverlaps);            // its copy number
-
+*/
 
     G4VPhysicalVolume* worldPV
             = new G4PVPlacement(

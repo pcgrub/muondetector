@@ -1,6 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
+from scipy import stats
 
 def f (t,N,tau):
     return N*np.exp(-(t)/tau)
@@ -35,11 +36,14 @@ print "nonPrimaries: " + str(np.shape(nonPrimaries))
 #plt.hist(primaries, 10, histtype='step', color="blue")
 n, bins, patches = plt.hist(nonPrimaries, 10000, color="red")
 bin_mids = -(bins[1]-bins[0])/2.+bins[1:]
-
+print capture
+print "Momente"
+print np.mean(Decay)
+print np.mean(capture)
 
 print len(primaries) + len(nonPrimaries) + len(Decay)
 
-
+"""
 plt.plot(bin_mids, n)
 plt.title("Decay Events over time (1M primaries)")
 plt.xlabel("$t$ in $[ns]$")
@@ -50,3 +54,4 @@ plt.plot(bin_mids, f(bin_mids, *popt))
 plt.hist(nonPrimaries, 100, histtype='step', color='blue')
 plt.hist(primaries, 100, color='green')
 plt.show()
+"""
