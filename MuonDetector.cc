@@ -39,7 +39,7 @@ int main(int argc,char** argv) {
 
     //====================
     //The Geometry
-    runManager->SetUserInitialization(new TestDetectorConstruction);
+    runManager->SetUserInitialization(new MuonDetectorConstruction);
 
     //====================
     //The Physics

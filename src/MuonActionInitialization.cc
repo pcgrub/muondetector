@@ -28,5 +28,5 @@ void MuonActionInitialization::Build() const {
 
     SetUserAction(new MyonPrimaryGeneratorAction);
     SetUserAction(new RunAction);
-    SetUserAction(new TestEventAction);
+    SetUserAction(new EventAction);
 }

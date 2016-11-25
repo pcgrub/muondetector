@@ -64,12 +64,7 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
     }
     else {
         const G4VProcess* creation = track->GetCreatorProcess();
-        G4VRestProcess* a;
-        G4double b = a->GetMeanLifeTime(const track*, const step*);
         process = creation->GetProcessName();
-        if (process == "muMinusCaptureAtRest"){
-            //G4cout << creation->GetMeanLifeTime() << "ns lifetime" << G4endl;
-        }
     }
 
     G4String origin = originvol->GetName();
@@ -87,7 +82,7 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
 
     //insert the hits of ScintHit type
     // changed for testing purpose:
-    if (/*name == "e+" || name == "e-" || name=="gamma" ||*/ name == "mu+" || name == "mu-") {
+    if (name == "e+" || name == "e-" || name=="gamma" || name == "mu+" || name == "mu-") {
         ScintHit *hit = new ScintHit(name, edep, origin, orEn, process, trackID, Momentum.z());
         hit->SetLogV(physical->GetLogicalVolume());
         hit->SetTime(preStepPoint->GetGlobalTime());

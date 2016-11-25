@@ -63,8 +63,8 @@ ang_data = np.genfromtxt("energy_calibration/angular_cali.csv", delimiter=",")
 path1 = "/home/piet/Dokumente/muondetector/primary_atmo.mac"
 
 # energies for atmospheric muons form momentum spectrum in GeV
-lowest_bin = p_to_E(data[0, 0]*1000)
-e_upper_limits = p_to_E(data[:, 1]*1000)
+lowest_bin = p_to_Ekin(data[0, 0]*1000)
+e_upper_limits = p_to_Ekin(data[:, 1]*1000)
 mids = data[:, 2]*1000
 total_flow = data[:, 3] + data[:, 4]
 meanflow = p_to_E(mids)*(total_flow)/mids
@@ -86,10 +86,10 @@ conc_data = np.genfromtxt("energy_calibration/conc_energy_cali.csv", delimiter="
 # path for the macro file for atmospheric muons that went through concrete
 path2 = "/home/piet/Dokumente/muondetector/primary_conc.mac"
 
-#energies from file (kinetic to overall)
-lowest_bin_conc = conc_data[0, 0] + muon_mass_MeV
-e_upper_limits_conc = conc_data[:, 1] + muon_mass_MeV
-mids_conc = conc_data[:, 2] + muon_mass_MeV
+#energies from file (kinetic)
+lowest_bin_conc = conc_data[0, 0]
+e_upper_limits_conc = conc_data[:, 1]
+mids_conc = conc_data[:, 2]
 flow_conc = conc_data[:, 3]
 
 #angles
