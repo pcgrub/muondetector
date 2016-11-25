@@ -13,6 +13,7 @@
 #include "G4SDManager.hh"
 #include "G4ios.hh"
 #include "G4VProcess.hh"
+#include "G4VRestProcess.hh"
 
 
 ScintSD::ScintSD(G4String name)
@@ -63,7 +64,12 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
     }
     else {
         const G4VProcess* creation = track->GetCreatorProcess();
+        G4VRestProcess* a;
+        G4double b = a->GetMeanLifeTime(const track*, const step*);
         process = creation->GetProcessName();
+        if (process == "muMinusCaptureAtRest"){
+            //G4cout << creation->GetMeanLifeTime() << "ns lifetime" << G4endl;
+        }
     }
 
     G4String origin = originvol->GetName();

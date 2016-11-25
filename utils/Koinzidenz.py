@@ -6,7 +6,7 @@ from scipy import stats
 def f (t,N,tau):
     return N*np.exp(-(t)/tau)
 #read in files
-path = "/home/piet/Dokumente/measurements/org_Mono_2MeV/"
+path = "/home/piet/Dokumente/measurements/org_Mono_20MeV/"
 
 data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")
 data1 = np.genfromtxt(path+"muon_Hits_nt_data_t1.csv", delimiter=",")
@@ -34,7 +34,7 @@ print "Primaries: " + str(np.shape(primaries))
 print "nonPrimaries: " + str(np.shape(nonPrimaries))
 #plt.hist(nonPrimaries, 100, histtype='step' , color="green")
 #plt.hist(primaries, 10, histtype='step', color="blue")
-n, bins, patches = plt.hist(nonPrimaries, 10000, color="red")
+n, bins, patches = plt.hist(capture, bins=np.logspace(0.5, 4, 100), color="red")
 bin_mids = -(bins[1]-bins[0])/2.+bins[1:]
 print capture
 print "Momente"
@@ -43,15 +43,14 @@ print np.mean(capture)
 
 print len(primaries) + len(nonPrimaries) + len(Decay)
 
-"""
-plt.plot(bin_mids, n)
+
+#plt.plot(bin_mids, n)
 plt.title("Decay Events over time (1M primaries)")
 plt.xlabel("$t$ in $[ns]$")
 plt.ylabel("# of Decay events")
 popt, pcov = curve_fit(f, bin_mids, n, bounds=(0., [300000.,  30000.]))
 print popt
-plt.plot(bin_mids, f(bin_mids, *popt))
-plt.hist(nonPrimaries, 100, histtype='step', color='blue')
-plt.hist(primaries, 100, color='green')
+#plt.plot(bin_mids, f(bin_mids, *popt))
+#plt.hist(nonPrimaries, 100, histtype='step', color='blue')
+#plt.hist(primaries, 100, color='green')
 plt.show()
-"""

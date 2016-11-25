@@ -1,34 +1,37 @@
 /gps/pos/type Plane
-/gps/pos/shape Rectangle
+/gps/pos/shape Square
 /gps/pos/centre 0. 0. -1. cm
 /gps/pos/halfx 0.25 m
 /gps/pos/halfy 0.15 m
 /gps/ene/type Arb
-/gps/ene/diffspec 0
+/gps/ene/diffspec 1
 /gps/hist/type arb
-/gps/hist/point 226.1939238 0.
-/gps/hist/point 318.0624013 25.0
-/gps/hist/point 413.7193386 30.4
-/gps/hist/point 560.0568642 31.6
-/gps/hist/point 707.9291569 30.1
-/gps/hist/point 856.5417043 28.9
-/gps/hist/point 1005.5663534 26.9
-/gps/hist/point 1204.6425574 24.0
-/gps/hist/point 1403.9813714 22.1
-/gps/hist/point 1603.4848584 18.9
-/gps/hist/point 2102.6563417 16.4
-/gps/hist/point 2941.8979743 11.8
-/gps/hist/point 4121.3545942 7.5
-/gps/hist/point 5501.0147874 4.51
-/gps/hist/point 7000.7973611 2.86
-/gps/hist/point 10000.558169 1.59
-/gps/hist/point 15500.3601149 0.698
-/gps/hist/point 23000.2426877 0.246
-/gps/hist/point 31100.17948 0.109
-/gps/hist/point 43600.1280238 0.047
-/gps/hist/point 61100.0913558 0.017
-/gps/hist/point 85600.0652085 0.0066
-/gps/hist/point 120000.046515 0.0026
+/gps/hist/point 112.976507076 0.
+/gps/hist/point 121.505930518 2.80540301971
+/gps/hist/point 145.477459254 6.62640384203
+/gps/hist/point 226.193923771 15.9013120416
+/gps/hist/point 318.062401348 27.141055829
+/gps/hist/point 413.719338623 31.755010765
+/gps/hist/point 560.056864212 32.3886482187
+/gps/hist/point 707.929156873 30.5339518565
+/gps/hist/point 856.541704268 29.1639415601
+/gps/hist/point 1005.56635343 27.0768192035
+/gps/hist/point 1204.64255742 24.1104600959
+/gps/hist/point 1403.98137137 22.172873218
+/gps/hist/point 1603.48485841 18.9468294869
+/gps/hist/point 2102.65634167 16.4270164605
+/gps/hist/point 2941.89797429 11.8106185635
+/gps/hist/point 4121.3545942 7.50343628161
+/gps/hist/point 5501.0147874 4.51110165479
+/gps/hist/point 7000.7973611 2.86041393221
+/gps/hist/point 10000.558169 1.59012667961
+/gps/hist/point 15500.3601149 0.698025257025
+/gps/hist/point 23000.2426877 0.246003864442
+/gps/hist/point 31100.17948 0.109000854734
+/gps/hist/point 43600.1280238 0.0470001948854
+/gps/hist/point 61100.0913558 0.0170000358194
+/gps/hist/point 85600.0652085 0.00660000709075
+/gps/hist/point 120000.046515 0.00260000142381
 /gps/hist/inter Lin
 /gps/ang/type user
 /gps/hist/type theta
