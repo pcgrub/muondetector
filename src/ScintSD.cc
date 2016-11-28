@@ -48,13 +48,12 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
 
     // also changed for testing purposes
     G4double orEn = track->GetVertexKineticEnergy();
-    //G4double orEn = track->GetTotalEnergy();
+    //G4double orEn = track->GetKineticEnergy();
 
     //
     const G4LogicalVolume* originvol = track->GetLogicalVolumeAtVertex();
     G4ParticleDefinition* particle = track->GetDefinition();
     G4int trackID = track->GetTrackID();
-
 
     // extracting the creation process from primary particles results  in a crash
     G4String name = particle->GetParticleName();

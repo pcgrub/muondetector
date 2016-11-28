@@ -3,12 +3,12 @@ from matplotlib import pyplot as plt
 from scipy.optimize import curve_fit
 from scipy import stats
 
-def f (t,N,tau):
-    return N*np.exp(-(t)/tau)
+def f (t,N,tau, t0):
+    return N*np.exp(-(t+t0)/tau)
 #read in files
-path = "/home/piet/Dokumente/build-muondetector/"
+path = "/home/piet/Dokumente/measurements/org_atmo_spec/10m_without_low/"
 
-data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")
+data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",", filling_values="0.")
 data1 = np.genfromtxt(path+"muon_Hits_nt_data_t1.csv", delimiter=",")
 data2 = np.genfromtxt(path+"muon_Hits_nt_data_t2.csv", delimiter=",")
 data3 = np.genfromtxt(path+"muon_Hits_nt_data_t3.csv", delimiter=",")
@@ -50,9 +50,11 @@ print len(primaries) + len(nonPrimaries) + len(Decay)
 plt.title("Capture Events over time (10M primaries)")
 plt.xlabel("$t$ in $[ns]$")
 plt.ylabel("# of Capture events")
-popt, pcov = curve_fit(f, bin_mids, n, bounds=(0., [300000.,  30000.]))
+rel_bins = bin_mids[bin_mids>0.45]
+rel_n = n[bin_mids>0.45]
+popt, pcov = curve_fit(f, rel_bins, rel_n, bounds=([0., 0., -5.], [300000.,  30000., 5.]))
 print popt
-plt.plot(bin_mids, f(bin_mids, *popt))
+plt.plot(rel_bins, f(rel_bins, *popt))
 #plt.hist(nonPrimaries, 100, histtype='step', color='blue')
 #plt.hist(primaries, 100, color='green')
 plt.show()

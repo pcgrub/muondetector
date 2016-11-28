@@ -70,8 +70,8 @@ G4VPhysicalVolume*TestDetectorConstruction::Construct() {
                       false,         // no boolean operations
                       0,
                       checkOverlaps);
-/*
-    new G4PVPlacement(0,              // no rotation
+
+   /* new G4PVPlacement(0,              // no rotation
                       G4ThreeVector(0. , 0., -90.*cm),
             //translation
                       ConcreteLog,      //corresponding logical volume
@@ -80,8 +80,8 @@ G4VPhysicalVolume*TestDetectorConstruction::Construct() {
                       false,         // no boolean operations
                       0,
                       checkOverlaps);            // its copy number
-*/
 
+*/
     G4VPhysicalVolume* worldPV
             = new G4PVPlacement(
                     0,               // no rotation

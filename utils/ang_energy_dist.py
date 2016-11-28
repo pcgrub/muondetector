@@ -13,8 +13,9 @@ def write_hist_file(bins, n, path):
     np.savetxt(path, output, delimiter=",", fmt="%7.5f", newline="\n")
 
 
-#path2 = "/home/piet/Dokumente/measurements/cali_conc/10m/"
-path = "/home/piet/Dokumente/build-muondetector/"
+#path2 = "/home/piet/Dokumente/measurements/test/from_measurement/"
+#path2 = "/home/piet/Dokumente/source-cali/"
+path = "/home/piet/Dokumente/measurements/cali_conc/10m_normale/"
 
 # read in data
 data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")
@@ -32,14 +33,13 @@ muon2 = np.concatenate((data4[data4[:, 5] > 2.], data5[data5[:, 5] > 2.], data6[
                        data7[data7[:, 5] > 2.]))
 """
 
-
 #print muon
 #calculate theta from momentum's z-component
-z = muon[:, 8]
-theta = np.arccos(z)
+#z = muon[:, 8]
+#theta = np.arccos(z)
 #z2 = muon2[:, 8]
 #theta2 = np.arccos(z2)
-print z
+#print z
 
 #extract energy
 E = muon[:, 3]
@@ -48,38 +48,43 @@ E = muon[:, 3]
 
 #initialize plotting window
 fig = plt.figure()
-ax1 = fig.add_subplot(121)
-ax2 = fig.add_subplot(122)
+#ax1 = fig.add_subplot(121)
+ax2 = fig.add_subplot(111)
 
 #plotting angular distribution
-n, bins, patches = ax1.hist(theta, 100, histtype="step")
+#n, bins, patches = ax1.hist(theta, 100, histtype="step")
 #ax1.hist(theta2, bins=bins, histtype="step")
-ax1.set_title("Angular Distribution of N=" + str(len(theta)) + " events")
-ax1.set_xlabel("angle [rad]")
-ax1.set_ylabel("# of events")
+#ax1.set_title("Angular Distribution of N=" + str(len(theta)) + " events")
+#ax1.set_xlabel("angle [rad]")
+#ax1.set_ylabel("# of events")
 
 # fitting the bin_mids and heights of the histogram
-bin_mids = -(bins[1]-bins[0])/2.+bins[1:]
-popt, pcov = curve_fit(f, bin_mids, n, bounds=(0., 300000.))
-print popt
-ax1.plot(bin_mids, f(bin_mids, *popt))
+#bin_mids = -(bins[1]-bins[0])/2.+bins[1:]
+#popt, pcov = curve_fit(f, bin_mids, n, bounds=(0., 300000.))
+#print popt
+#ax1.plot(bin_mids, f(bin_mids, *popt))
 
 #plotting energy distribution
-n_2, bins_2, patches_2 = ax2.hist(E, bins=np.logspace(1.0, 5.08, 101),
-                                  histtype="step")
-#ax2.hist(E2, bins=bins_2, histtype="step")
-ax2.set_title("Energy Distribution of N=" + str(len(E)) + " events")
+n_2, bins_2, patches_2 = ax2.hist(E, bins=np.logspace(-1.0, 6., 101),
+                                  histtype="step", label="concrete")
+#ax2.hist(E2, bins=bins_2, histtype="step", label="air")
+ax2.set_title("Energy Distribution WITH low energy extrapolation" + str(len(E)) + " events")
 ax2.set_xlabel("Energy [MeV]")
 ax2.set_ylabel("# of events")
 ax2.set_xscale('log')
-#ax2.set_yscale('log')
+ax2.set_yscale('log')
 
-print min(E)
+#print E2
+#print min(E2)
+#print max(E2)
 
-energy_file_path = "/home/piet/Dokumente/muondetector/utils/energy_calibration/conc_energy_cali.csv"
-anular_file_path = "/home/piet/Dokumente/muondetector/utils/energy_calibration/angular_cali.csv"
+print max(E)
+
+energy_file_path = "/home/piet/Dokumente/muondetector/utils/energy_calibration/conc_energy_cali_without_low.csv"
+anular_file_path = "/home/piet/Dokumente/muondetector/utils/energy_calibration/angular_cali_without_low.csv"
 #write_hist_file(bins, n, anular_file_path)
-#write_hist_file(bins_2, n_2, energy_file_path)
+write_hist_file(bins_2, n_2, energy_file_path)
 
 # fitting bin mids and such:
+plt.legend()
 plt.show()

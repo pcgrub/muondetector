@@ -27,16 +27,23 @@ def write_angles(f, lower_limit,upper_limits, angles):
     f.write("/gps/hist/point 0. 0.\n")
     f.write("/gps/hist/point 6.282 4.\n")
 
-def write_energies(f, lower_limit,upper_limits, energies, diffspec):
+def write_energies_diff(f, lower_limit,upper_limits, energies):
     f.write("/gps/ene/type Arb\n")
-    f.write("/gps/ene/diffspec " + diffspec + "\n")
+    f.write("/gps/ene/diffspec 1\n")
     f.write("/gps/hist/type arb\n")
     f.write("/gps/hist/point " + str(lower_limit) + " 0.\n")
     for i, val in enumerate(energies):
         f.write("/gps/hist/point " + str(upper_limits[i]) + " " + str(val) + "\n")
     f.write("/gps/hist/inter Lin\n")
 
-def write_to_text(path,low_an,ang_upper_limits, angles, low_e, e_upper_lims, energies, diffspec):
+def write_energies_user(f, lower_limit,upper_limits, energies):
+    f.write("/gps/ene/type User\n")
+    f.write("/gps/hist/type energy\n")
+    f.write("/gps/hist/point " + str(lower_limit) + " 0.\n")
+    for i, val in enumerate(energies):
+        f.write("/gps/hist/point " + str(upper_limits[i]) + " " + str(val) + "\n")
+
+def write_to_text(path,low_an,ang_upper_limits, angles, low_e, e_upper_lims, energies, type):
     # open file to write to
     f = open(path, "w")
 
@@ -48,7 +55,10 @@ def write_to_text(path,low_an,ang_upper_limits, angles, low_e, e_upper_lims, ene
     f.write("/gps/pos/centre 0. 0. -1. cm\n")
     f.write("/gps/pos/halfx 0.25 m\n")
     f.write("/gps/pos/halfy 0.15 m\n")
-    write_energies(f, low_e, e_upper_lims, energies, diffspec)
+    if type == "diff":
+        write_energies_diff(f, low_e, e_upper_lims, energies)
+    else:
+        write_energies_user(f, low_e, e_upper_lims, energies)
     write_angles(f, low_an, ang_upper_limits, angles)
     f.close()
 
@@ -78,10 +88,10 @@ angles = ang_upper_limits-bin_size
 values = (np.cos(angles))**2
 
 # write to text file primary_atmo.mac
-write_to_text(path1, 0., ang_upper_limits, values, lowest_bin, e_upper_limits, meanflow, "1")
+write_to_text(path1, 0., ang_upper_limits, values, lowest_bin, e_upper_limits, meanflow, "diff")
 
 # calibration file
-conc_data = np.genfromtxt("energy_calibration/conc_energy_cali.csv", delimiter=",")
+conc_data = np.genfromtxt("energy_calibration/conc_energy_cali_without_low.csv", delimiter=",")
 
 # path for the macro file for atmospheric muons that went through concrete
 path2 = "/home/piet/Dokumente/muondetector/primary_conc.mac"
@@ -100,11 +110,11 @@ values_conc = ang_data[:, 3]
 
 # write to text file primary_conc.mac
 write_to_text(path2, ang_lowest_bin_conc, ang_upper_limits_conc, values_conc, lowest_bin_conc, e_upper_limits_conc,
-              flow_conc, "0")
+              flow_conc, "user")
 
 # optional plots for verfication purposes:
-plt.xscale('log')
-plt.yscale('log')
-plt.plot(p_to_Ekin(data[:, 2]*1000), meanflow)
+#plt.xscale('log')
+#plt.yscale('log')
+#plt.plot(p_to_Ekin(data[:, 2]*1000), meanflow)
 #plt.plot(angles, values)
-plt.show()
+#plt.show()
