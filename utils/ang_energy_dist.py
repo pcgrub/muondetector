@@ -83,7 +83,7 @@ print max(E)
 energy_file_path = "/home/piet/Dokumente/muondetector/utils/energy_calibration/conc_energy_cali_without_low.csv"
 anular_file_path = "/home/piet/Dokumente/muondetector/utils/energy_calibration/angular_cali_without_low.csv"
 #write_hist_file(bins, n, anular_file_path)
-write_hist_file(bins_2, n_2, energy_file_path)
+#write_hist_file(bins_2, n_2, energy_file_path)
 
 # fitting bin mids and such:
 plt.legend()

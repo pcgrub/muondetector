@@ -12,7 +12,7 @@ def g(t, A):
 
 
 
-data = np.genfromtxt("energy_calibration/energy_cali_E.csv", delimiter=",")
+data = np.genfromtxt("energy_calibration/energy_cali.csv", delimiter=",")
 
 lowest_bins = data[0:0]
 upper_limits = data[:, 1]
@@ -20,7 +20,7 @@ meanflow = data[:, 3] + data[:, 4]
 plt.xscale('log')
 plt.yscale('log')
 plt.plot(data[:, 2], meanflow)
-popt, pcov = curve_fit(f, data[:, 2], meanflow, bounds=([0., 0.], [0.00000001, 10.]))
-print popt
+#popt, pcov = curve_fit(f, data[:, 2], meanflow, bounds=([0., 0.], [0.00000001, 10.]))
+#print popt
 #plt.plot(data[:, 2], f(data[:, 2], *popt))
 plt.show()

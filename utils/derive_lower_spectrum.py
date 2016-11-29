@@ -25,14 +25,12 @@ val = data[3:, 2]*1000.
 E_kin1 = p_to_Ekin(val)
 E_flow1 = E_kin1*meanflow/val
 
-other = data[:4, 3] + data[:4, 4]
-val2 = data[:4, 2]*1000.
+lower_bins = p_to_Ekin(data[3:, 0]*1000.)
+upper_bins = p_to_Ekin(data[3:, 1]*1000.)
 
-E_kin2 = p_to_Ekin(val2)
-E_flow2 = E_kin2*other/val2
-
+area = (upper_bins-lower_bins)*E_flow1
+print area.sum()
 #print upper_limits
-plt.plot(E_kin2, E_flow2, 'r.', label="Extrapolation")
 plt.plot(E_kin1, E_flow1, 'b.', label="Experimental Data")
 plt.ylabel("Intensity $[(m^2sGeV)^{-1}]$")
 plt.xlabel("$E_{kin} [MeV]$")
