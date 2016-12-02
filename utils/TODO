@@ -1,7 +1,10 @@
--fix energyspectrum for calibration
--get decay constants
--implement lower parts of the spectrum
-erstes zentrales moment ist die lebensdauer
-
+-rest:
+spectrum im beton gestoppt absorbiert
+scatterplot in oben und unten aufteilen
+scatterplot farben einzeln plotten
+capture prozess in der physics reference nachlesen
+catprue time constant log plot
+resolve time problem
+G4StepLimiter
 
 
