@@ -96,19 +96,28 @@ void EventAction::EndOfEventAction(const G4Event* event) {
         // fill ntuples
     // fill the first columns reserved for the first Scintillator
     //G4cout<<  scintHC1->entries() << " Scint1 " <<  scintHC2->entries() << " Scint2 "<< G4endl;
-    G4cout << "Event number: " << event->GetEventID() << G4endl;
+    //G4cout << "Event number: " << event->GetEventID() << G4endl;
     G4double E_temp = 0.;
+    G4int Hit_number = 0;
+    G4double Hit_Time = 0.;
 
     for (G4int i=0;i<scintHC1->entries();i++) {
-        //G4cout <<event->GetEventID() << " event "<<  " Eorg " << E_temp << " E temp " <<i <<" times"<< G4endl;
+
+        // The time is only measured if its the particle's first step in the medium
+        if (Hit_number == 0){
+            Hit_Time = (*scintHC1)[i]->GetTime();
+        }
+
+        //The hit is only generated at the last step so that each step the deposited energy can be added up
+
         // add up the energies until there is a new particle
-        // a new particle is indicated by the
+        // a new particle is indicated by a new Track ID
         if ((i == scintHC1->entries()-1) || ((*scintHC1)[i+1]->GetTrack()!=(*scintHC1)[i]->GetTrack())){
             // column 0 event number
             analysisManager->FillNtupleDColumn(0, event->GetEventID());
 
             // column 1 Time
-            analysisManager->FillNtupleDColumn(1, (*scintHC1)[i]->GetTime());
+            analysisManager->FillNtupleDColumn(1, Hit_Time);
 
             // column 2 EnergySc1
             analysisManager->FillNtupleDColumn(2, E_temp+(*scintHC1)[i]->GetEnergy());
@@ -149,18 +158,25 @@ void EventAction::EndOfEventAction(const G4Event* event) {
 
             analysisManager->AddNtupleRow();
             E_temp = 0.;
+            Hit_number = 0;
         }
         else{
             E_temp+=(*scintHC1)[i]->GetEnergy();
+            Hit_number++;
         }
     }
+    // equivalent scenario as in scint1
     for (G4int i=0;i<scintHC2->entries();i++) {
+
+        if (Hit_number == 0) {
+            Hit_Time = (*scintHC2)[i]->GetTime();
+        }
         //G4cout << event->GetEventID() << " event " << " Eorg " << E_temp << " E temp " <<i <<" times"<< G4endl;
         if (i == scintHC2->entries() - 1 || ((*scintHC2)[i+1]->GetTrack()!=(*scintHC2)[i]->GetTrack())) {
             // column 0 event number
             analysisManager->FillNtupleDColumn(0, event->GetEventID());
             // column 1 Time
-            analysisManager->FillNtupleDColumn(1, (*scintHC2)[i]->GetTime());
+            analysisManager->FillNtupleDColumn(1, Hit_Time);
             // column 7 EnergySc2
             analysisManager->FillNtupleDColumn(2, E_temp+(*scintHC2)[i]->GetEnergy());
             // column 8 OriginalEnergySc2
@@ -191,11 +207,15 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             analysisManager->FillNtupleDColumn(7, 2.0);
 
             analysisManager->AddNtupleRow();
+
+            // reinit the values used for
             E_temp = 0.;
+            Hit_number = 0;
 
         }
         else{
             E_temp+=(*scintHC2)[i]->GetEnergy();
+            Hit_number++;
         }
     }
 
