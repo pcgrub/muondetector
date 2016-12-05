@@ -29,13 +29,13 @@ RunAction::RunAction(): G4UserRunAction() {
     analysisManager->CreateNtuple("data", "Hits");
     analysisManager->CreateNtupleDColumn("Eventnumber");    // column Id = 0
     analysisManager->CreateNtupleDColumn("Time");  // column Id = 1
-    analysisManager->CreateNtupleDColumn("EnergySc1"); // column Id = 2
-    analysisManager->CreateNtupleDColumn("OriginalEnergySc1");    // column Id = 3
-    analysisManager->CreateNtupleDColumn("DecayFlagSc1");  //column Id = 4
-    analysisManager->CreateNtupleDColumn("particleFlagSc1"); //column Id = 5
-    analysisManager->CreateNtupleDColumn("Origin(Logical Volume)SC1Hit"); //column Id 6
+    analysisManager->CreateNtupleDColumn("DepositedEnergy"); // column Id = 2
+    analysisManager->CreateNtupleDColumn("OriginalEnergy");    // column Id = 3
+    analysisManager->CreateNtupleDColumn("DecayFlag");  //column Id = 4
+    analysisManager->CreateNtupleDColumn("particleFlag"); //column Id = 5
+    analysisManager->CreateNtupleDColumn("Origin(LogicalVolume)"); //column Id 6
     analysisManager->CreateNtupleDColumn("Detector"); // column Id = 7
-    analysisManager->CreateNtupleDColumn("Angle at Vertex"); // column Id = 8
+    analysisManager->CreateNtupleDColumn("z-Momentum"); // column Id = 8
     analysisManager->FinishNtuple();
 }
 RunAction::~RunAction(){

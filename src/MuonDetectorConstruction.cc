@@ -99,7 +99,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                       G4ThreeVector(posOVERALL_x, posOVERALL_y, 0.*cm),
             //translation
                       ScintLog1,      //corresponding logical volume
-                      "Scint-1-physical",  // the name of the volume
+                      "1-SC1",  // the name of the volume
                       WorldLog,      // its mother log volume
                       false,         // no boolean operations
                       0,
@@ -110,7 +110,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                      G4ThreeVector(posOVERALL_x, posOVERALL_y, 2.3*cm),
             //translation
                      CopperLog,      //corresponding logical volume
-                     "2-Copperplate",  // the name of the volume
+                     "2-Copper1",  // the name of the volume
                      WorldLog,       // its mother log volume
                      false,          // no boolean operations
                      0,
@@ -120,7 +120,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                      G4ThreeVector(posOVERALL_x, posOVERALL_y, 3.3*cm),
             //translation
                      CopperLog,      //corresponding logical volume
-                     "3-Copperplate2",  // the name of the volume
+                     "3-Copper2",  // the name of the volume
                      WorldLog,       // its mother log volume
                      false,          // no boolean operations
                      1,
@@ -132,7 +132,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                       G4ThreeVector(posOVERALL_x, posOVERALL_y, 6.4*cm),
             //translation
                       ScintLog2,      //corresponding logical volume
-                      "Scint-4-physical",  // the name of the volume
+                      "4-SC2",  // the name of the volume
                       WorldLog,      // its mother log volume
                       false,         // no boolean operations
                       0,
@@ -140,21 +140,6 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
 
     // the physical volume for the "world" is always initialized in
     // the following manner:
-
-    /*
-    new G4PVPlacement(0,              // no rotation
-                      G4ThreeVector(posOVERALL_x, posOVERALL_y, -90.*cm),
-            //translation
-                      ConcreteLog,      //corresponding logical volume
-                      "concrete-physical",  // the name of the volume
-                      WorldLog,      // its mother log volume
-                      false,         // no boolean operations
-                      0,
-                      checkOverlaps);            // its copy number
-
-    // the physical volume for the "world" is always initialized in
-    // the following manner:
-    */
      G4VPhysicalVolume* worldPV
             = new G4PVPlacement(
                     0,               // no rotation
@@ -182,9 +167,5 @@ void MuonDetectorConstruction::ConstructSDandField() {
     G4VSensitiveDetector* scintillator2 = new ScintSD(SDname="/scint2");
     SDman->AddNewDetector(scintillator2);
     ScintLog2->SetSensitiveDetector(scintillator2);
-
-    //G4VSensitiveDetector* coppertarget = new CopperSD(SDname="/copper");
-    //SDman->AddNewDetector(coppertarget);
-    //CopperLog->SetSensitiveDetector(coppertarget);
 }
 //

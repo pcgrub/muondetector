@@ -96,7 +96,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
         // fill ntuples
     // fill the first columns reserved for the first Scintillator
     //G4cout<<  scintHC1->entries() << " Scint1 " <<  scintHC2->entries() << " Scint2 "<< G4endl;
-    //G4cout << "Event number: " << event->GetEventID() << G4endl;
+    G4cout << "Event number: " << event->GetEventID() << G4endl;
     G4double E_temp = 0.;
     G4int Hit_number = 0;
     G4double Hit_Time = 0.;
@@ -177,17 +177,17 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             analysisManager->FillNtupleDColumn(0, event->GetEventID());
             // column 1 Time
             analysisManager->FillNtupleDColumn(1, Hit_Time);
-            // column 7 EnergySc2
+            // column 2 EnergySc2
             analysisManager->FillNtupleDColumn(2, E_temp+(*scintHC2)[i]->GetEnergy());
-            // column 8 OriginalEnergySc2
+            // column 3 OriginalEnergySc2
             analysisManager->FillNtupleDColumn(3, (*scintHC2)[i]->GetOriginalKineticEnergy());
 
-            // column 9 DecayFlagSc2
+            // column 4 DecayFlagSc2
             if ((*scintHC2)[i]->GetProcess() == "Decay") { analysisManager->FillNtupleDColumn(4, 1.0); }
             else if ((*scintHC2)[i]->GetProcess() == "muMinusCaptureAtRest") { analysisManager->FillNtupleDColumn(4, 2.0); }
             else { analysisManager->FillNtupleDColumn(4, 0.0); }
 
-            // column 10 ParticeflagSc2
+            // column 5 ParticeflagSc2
             G4String temp_name = (*scintHC2)[i]->GetName();
             if (temp_name == "e+") { analysisManager->FillNtupleDColumn(5, 1.0); }
             else if (temp_name == "e-") { analysisManager->FillNtupleDColumn(5, 2.0); }
@@ -195,7 +195,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             else if (temp_name == "mu-") { analysisManager->FillNtupleDColumn(5, 4.0); }
             else { analysisManager->FillNtupleDColumn(5, 0.0); }
 
-            // column 11
+            // column 6
             G4String origin = (*scintHC2)[i]->GetOrigin();
             if (origin == "World") { analysisManager->FillNtupleDColumn(6, 0.0); }
             else if (origin == "Scint plate1") { analysisManager->FillNtupleDColumn(6, 1.0); }
@@ -203,8 +203,13 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             else if (origin == "Scint plate2") { analysisManager->FillNtupleDColumn(6, 3.0); }
             else { analysisManager->FillNtupleDColumn(6, 0.0); }
 
+            //column 7
             //scintillator
             analysisManager->FillNtupleDColumn(7, 2.0);
+
+            //column 8
+            G4double mom = (*scintHC2)[i]->GetMomentum();
+            analysisManager->FillNtupleDColumn(8, mom);
 
             analysisManager->AddNtupleRow();
 

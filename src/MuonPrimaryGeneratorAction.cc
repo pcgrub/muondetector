@@ -36,9 +36,6 @@ MyonPrimaryGeneratorAction::MyonPrimaryGeneratorAction()
     // default particle kinematics
     //fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,-2.*m));
     fParticleGun->SetParticleDefinition(fMuon);
-
-
-
     // define commands for this class
     DefineCommands();
 }
@@ -61,10 +58,6 @@ void MyonPrimaryGeneratorAction::GeneratePrimaries(G4Event* event) {
     fParticleGun->SetParticleDefinition(particle);
     particle->SetPDGStable(false);
 
-    //beam angle (zenith)
-    //G4double angle = 0.;
-    //fParticleGun->SetParticleMomentumDirection(G4ThreeVector(std::sin(angle),0.,std::cos(angle)));
-
     // adds s the particle gun tu the event
     // an event is created automatically and deleted
     // automatically by G4RunManager
@@ -72,10 +65,4 @@ void MyonPrimaryGeneratorAction::GeneratePrimaries(G4Event* event) {
 
 }
 
-void MyonPrimaryGeneratorAction::DefineCommands(){
-    //fMessenger = new G4GenericMessenger(this, "/tutorial/generator",
-    //"Primary generator control");
-    // here options for the user interaction can be set
-    // and will be at some point later I guess
-
-}
+void MyonPrimaryGeneratorAction::DefineCommands(){}
