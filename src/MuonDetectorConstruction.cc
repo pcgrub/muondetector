@@ -20,16 +20,20 @@
 #include "G4PhysicalConstants.hh"
 #include "G4SystemOfUnits.hh"
 
+
+#include "G4UserLimits.hh"
 #include "ScintSD.hh"
 
 // Constructor
 
 MuonDetectorConstruction::MuonDetectorConstruction():
-        G4VUserDetectorConstruction(),ScintLog1(0),ScintLog2(0),CopperLog(0){
+        G4VUserDetectorConstruction(),ScintLog1(0),ScintLog2(0),CopperLog(0), fStepLimit(NULL){
 }
 
 MuonDetectorConstruction::~MuonDetectorConstruction()
-{}
+{
+    delete fStepLimit;
+}
 
 
 //Definitions of Materials used for the Detector
@@ -150,6 +154,14 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                     false,           // no boolean operations
                     0,               // copy number
                     1); // checking overlaps
+
+    // Tracking cuts to make sure that there are enough trajectory steps in certain volumes
+    G4double maxStep = 0.1*PlattenDimZ;
+    fStepLimit = new G4UserLimits(maxStep);
+    CopperLog->SetUserLimits(fStepLimit);
+    ScintLog1->SetUserLimits(fStepLimit);
+    ScintLog2->SetUserLimits(fStepLimit);
+
 
     return worldPV;
 }

@@ -12,6 +12,7 @@
 // useful classes for the main program
 class G4VPhysicalVolume;
 class G4LogicalVolume;
+class G4UserLimits;
 
 // Define a detectorConstruction class
 
@@ -27,6 +28,9 @@ public:
     G4LogicalVolume* ScintLog1;
     G4LogicalVolume* ScintLog2;
     G4LogicalVolume* CopperLog;
+
+private:
+    G4UserLimits* fStepLimit;
 
 };
 

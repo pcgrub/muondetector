@@ -19,6 +19,7 @@
 #include "G4ios.hh"
 
 
+
 EventAction::EventAction()
         : G4UserEventAction(),fSCID1(-1),fSCID2(-1)
 {
@@ -100,6 +101,24 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     G4double E_temp = 0.;
     G4int Hit_number = 0;
     G4double Hit_Time = 0.;
+    G4double Muon_Time = 0.;
+
+    //time correction
+    // to determine not the global time, but the time relative to the first muon hit
+    // the muons_time must be found out first
+    G4double Muon_Time_Sc1 = 0.;
+    for (G4int i=0;i<scintHC1->entries();i++){
+        if(((*scintHC1)[i]->GetName()=="mu+" ||(*scintHC1)[i]->GetName()=="mu-" )&& Muon_Time_Sc1 == 0.){
+            Muon_Time_Sc1 = (*scintHC1)[i]->GetTime();
+        }
+    }
+    G4double Muon_Time_Sc2 = 0.;
+    for (G4int i=0;i<scintHC2->entries();i++){
+        if(((*scintHC2)[i]->GetName()=="mu+" ||(*scintHC2)[i]->GetName()=="mu-" )&& Muon_Time_Sc2 == 0.){
+            Muon_Time_Sc2 = (*scintHC2)[i]->GetTime();
+        }
+    }
+    Muon_Time = std::min(Muon_Time_Sc1,Muon_Time_Sc2);
 
     for (G4int i=0;i<scintHC1->entries();i++) {
 
@@ -117,7 +136,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             analysisManager->FillNtupleDColumn(0, event->GetEventID());
 
             // column 1 Time
-            analysisManager->FillNtupleDColumn(1, Hit_Time);
+            analysisManager->FillNtupleDColumn(1, Hit_Time-Muon_Time);
 
             // column 2 EnergySc1
             analysisManager->FillNtupleDColumn(2, E_temp+(*scintHC1)[i]->GetEnergy());
@@ -176,7 +195,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             // column 0 event number
             analysisManager->FillNtupleDColumn(0, event->GetEventID());
             // column 1 Time
-            analysisManager->FillNtupleDColumn(1, Hit_Time);
+            analysisManager->FillNtupleDColumn(1, Hit_Time-Muon_Time);
             // column 2 EnergySc2
             analysisManager->FillNtupleDColumn(2, E_temp+(*scintHC2)[i]->GetEnergy());
             // column 3 OriginalEnergySc2
