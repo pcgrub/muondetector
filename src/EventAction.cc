@@ -136,7 +136,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             analysisManager->FillNtupleDColumn(0, event->GetEventID());
 
             // column 1 Time
-            analysisManager->FillNtupleDColumn(1, Hit_Time-Muon_Time);
+            analysisManager->FillNtupleDColumn(1, Hit_Time);
 
             // column 2 EnergySc1
             analysisManager->FillNtupleDColumn(2, E_temp+(*scintHC1)[i]->GetEnergy());
@@ -175,6 +175,9 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             //G4cout << "momz: " << mom  << G4endl;
             analysisManager->FillNtupleDColumn(8, mom);
 
+            //Muon relative Time
+            analysisManager->FillNtupleDColumn(9,Hit_Time-Muon_Time);
+
             analysisManager->AddNtupleRow();
             E_temp = 0.;
             Hit_number = 0;
@@ -195,7 +198,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             // column 0 event number
             analysisManager->FillNtupleDColumn(0, event->GetEventID());
             // column 1 Time
-            analysisManager->FillNtupleDColumn(1, Hit_Time-Muon_Time);
+            analysisManager->FillNtupleDColumn(1, Hit_Time);
             // column 2 EnergySc2
             analysisManager->FillNtupleDColumn(2, E_temp+(*scintHC2)[i]->GetEnergy());
             // column 3 OriginalEnergySc2
@@ -229,6 +232,9 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             //column 8
             G4double mom = (*scintHC2)[i]->GetMomentum();
             analysisManager->FillNtupleDColumn(8, mom);
+
+            //Muon relative Time
+            analysisManager->FillNtupleDColumn(9,Hit_Time-Muon_Time);
 
             analysisManager->AddNtupleRow();
 

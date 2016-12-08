@@ -111,7 +111,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
     // there are two plates
 
      new G4PVPlacement(0,              // no rotation
-                     G4ThreeVector(posOVERALL_x, posOVERALL_y, 2.3*cm),
+                     G4ThreeVector(posOVERALL_x, posOVERALL_y, 3.1*cm),
             //translation
                      CopperLog,      //corresponding logical volume
                      "2-Copper1",  // the name of the volume
@@ -121,7 +121,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                       checkOverlaps);             // its copy number
 
     new G4PVPlacement(0,              // no rotation
-                     G4ThreeVector(posOVERALL_x, posOVERALL_y, 3.3*cm),
+                     G4ThreeVector(posOVERALL_x, posOVERALL_y, 4.1*cm),
             //translation
                      CopperLog,      //corresponding logical volume
                      "3-Copper2",  // the name of the volume

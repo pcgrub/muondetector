@@ -21,8 +21,8 @@ RunAction::RunAction(): G4UserRunAction() {
     analysisManager->SetVerboseLevel(1);
     analysisManager->SetFileName("muon_Hits");
 
-    analysisManager->CreateH1("Chamber1","Drift Chamber 1 # Hits", 50, 0., 7); // h1 Id = 0
-    analysisManager->CreateH1("Chamber2","Drift Chamber 2 # Hits", 50, 0., 7); // h1 Id = 1
+    //analysisManager->CreateH1("Chamber1","Drift Chamber 1 # Hits", 50, 0., 7); // h1 Id = 0
+    //analysisManager->CreateH1("Chamber2","Drift Chamber 2 # Hits", 50, 0., 7); // h1 Id = 1
 
 
     //Creating ntuple
@@ -36,6 +36,7 @@ RunAction::RunAction(): G4UserRunAction() {
     analysisManager->CreateNtupleDColumn("Origin(LogicalVolume)"); //column Id 6
     analysisManager->CreateNtupleDColumn("Detector"); // column Id = 7
     analysisManager->CreateNtupleDColumn("z-Momentum"); // column Id = 8
+    analysisManager->CreateNtupleDColumn("Muon-relative Time"); // column Id = 9
     analysisManager->FinishNtuple();
 }
 RunAction::~RunAction(){
