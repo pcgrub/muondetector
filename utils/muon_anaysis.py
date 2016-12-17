@@ -1,53 +1,85 @@
 from matplotlib import pyplot as plt
 import numpy as np
 
-path = "/home/piet/Dokumente/measurements/org_conc_spec/10m/"
+#read in files
+path = "/home/piet/Dokumente/measurements/new/org_conc_spec/10m/"
+path2 = "/home/piet/Dokumente/measurements/new/org_conc_spec/10k/"
 
-# read in all the arrays from the csv
-data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")
-data1 = np.genfromtxt(path+"muon_Hits_nt_data_t1.csv", delimiter=",")
-data2 = np.genfromtxt(path+"muon_Hits_nt_data_t2.csv", delimiter=",")
-data3 = np.genfromtxt(path+"muon_Hits_nt_data_t3.csv", delimiter=",")
-mu_10k = np.concatenate((data0, data1, data2, data3))
 
-# Decay flags are in column 5(4)
-# get data of decayed particles only in the second scintillator
-#log =np.logical_and(muplus_10k[:, 9] < 0.1 , muplus_10k[:, 10] < 3)
+decay = np.genfromtxt(path+"decay.csv", delimiter=",")
+capture = np.genfromtxt(path+"capture.csv", delimiter=",")
+primaries = np.genfromtxt(path2+"primaries.csv", delimiter=",")
+other = np.genfromtxt(path+"other.csv", delimiter=",")
+gamma = np.genfromtxt(path+"gamma.csv", delimiter=",")
 
-#relevant groups
 
-#first split into relevant and non Decay
-mu_rel = mu_10k[mu_10k[:, 4] > 0.9]
-mu_nonDecay = mu_10k[(mu_10k[:, 4] < 0.1)]
+primaries_Sc1 = primaries[primaries[:, 7] < 1.1]
+primaries_Sc2 = primaries[primaries[:, 7] > 1.1]
+capture_Sc1 = capture[capture[:, 7] < 1.1]
+capture_Sc2 = capture[capture[:, 7] > 1.1]
+decay_Sc1 = decay[decay[:, 7] < 1.1]
+decay_Sc2 = decay[decay[:, 7] > 1.1]
+other_Sc1 = other[other[:, 7] < 1.1]
+other_Sc2 = other[other[:, 7] > 1.1]
+gamma_Sc1 = gamma[gamma[:, 7] < 1.1]
+gamma_Sc2 = gamma[gamma[:, 7] > 1.1]
 
-# split relevant in Decay and Capture
-mu_Decay = mu_rel[mu_rel[:, 4] < 1.1]
-mu_capture = mu_rel[mu_rel[:, 4] > 1.1]
+#print "Capture: " + str(np.shape(capture))
+print "Decay: " + str(np.shape(decay))
+print "Primaries: " + str(np.shape(primaries))
+#print "Other: " + str(np.shape(other))
+print "Gamma: " + str(np.shape(gamma))
 
-# split other into primaries and secondaries
-mu_primaries = mu_nonDecay[mu_nonDecay[:, 5] > 2.1]
-mu_nonPrimaries = mu_nonDecay[mu_nonDecay[:, 5] < 2.1]
+print len(decay) + len(primaries) + len(capture)
+print len(decay)
+print len(decay[decay[:, 6] == 0.])
 
-# and the non primaries in gamma and electrons/positrons
-mu_gamma = mu_nonPrimaries[mu_nonPrimaries[:, 5] < 0.1]
-mu_other = mu_nonPrimaries[mu_nonPrimaries[:, 5] > 0.1]
 
-print "quantities:"
-print "Primaries: " + str(len(mu_primaries))
-print "Decay: " + str(len(mu_Decay))
-print "Capture: " + str(len(mu_capture))
-print "Gamma: " + str(len(mu_gamma))
-print "Other: " + str(len(mu_other))
+fig = plt.figure()
+ax1 = fig.add_subplot(121)
+ax2 = fig.add_subplot(122)
 
-plt.title("10m primary particles simulation ")
-plt.xlabel("Time [ns]")
-plt.ylabel("$\Delta E$ $[MeV]$")
-plt.plot(mu_primaries[:, 1], mu_primaries[:, 2], 'c.', label="primaries", ms=3)
-plt.plot(mu_other[:, 1], mu_other[:, 2], 'g.', label="other", ms=3)
-plt.plot(mu_capture[:, 1], mu_capture[:, 2], 'b.', label="capture", ms=3)
-plt.plot(mu_Decay[:, 1], mu_Decay[:, 2], 'r.', label="Decay", ms=3)
-plt.plot(mu_gamma[:, 1], mu_gamma[:, 2], 'y.', label="gamma", ms=3)
-plt.xscale("log")
-#plt.yscale("log")
-plt.legend()
+ax1.set_title("SC1")
+ax2.set_title("SC2")
+
+ax1.set_xlabel("Zeit [ns]")
+#ax1.set_ylabel("$\Delta E$ $[MeV]$")
+ax1.set_ylabel("$E$ $[MeV]$")
+ax2.set_xlabel("Zeit [ns]")
+#ax2.set_ylabel("$\Delta E$ $[MeV]$")
+
+
+ax1.set_xscale("log")
+ax2.set_xscale("log")
+ax1.set_yscale("log")
+ax2.set_yscale("log")
+
+#ax1.plot(primaries_Sc1[:, 1], primaries_Sc1[:, 2], 'b.', label="$\mu^+/\mu^-$", ms=3)
+#ax2.plot(primaries_Sc2[:, 1], primaries_Sc2[:, 2], 'b.', label="$\mu^+/\mu^-$", ms=3)
+
+ax1.set_xlim(0.01, 100000)
+ax2.set_xlim(0.01, 100000)
+ax1.set_ylim(0.0001, 100)
+ax2.set_ylim(0.0001, 100)
+#ax1.plot(decay_Sc1[:, 1], decay_Sc1[:, 2], 'r.', label="$e^+/e^-$(Zerfall)", ms=3)
+#ax2.plot(decay_Sc2[:, 1], decay_Sc2[:, 2], 'r.', label="$e^+/e^-$(Zerfall)", ms=3)
+
+ax1.plot(other_Sc1[:, 1], other_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+ax2.plot(other_Sc2[:, 1], other_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+
+#ax1.plot(capture_Sc1[:, 1], capture_Sc1[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
+#ax2.plot(capture_Sc2[:, 1], capture_Sc2[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
+
+#ax1.axhline(y=0.0006, color='k', label="Schwelle")
+#ax2.axhline(y=0.0006, color='k', label="Schwelle")
+#ax1.axvline(x=3, color='k')
+#ax2.axvline(x=30., color='k')
+
+ax1.plot(gamma_Sc1[:, 1], gamma_Sc1[:, 3], 'b.', label="Photonen", ms=3)
+ax2.plot(gamma_Sc2[:, 1], gamma_Sc2[:, 3], 'b.', label="Photonen", ms=3)
+
+ax1.legend(loc=2)
+ax2.legend(loc=2)
+plt.tight_layout()
 plt.show()
+

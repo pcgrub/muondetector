@@ -116,6 +116,8 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     for (G4int i=0;i<scintHC2->entries();i++){
         if(((*scintHC2)[i]->GetName()=="mu+" ||(*scintHC2)[i]->GetName()=="mu-" )&& Muon_Time_Sc2 == 0.){
             Muon_Time_Sc2 = (*scintHC2)[i]->GetTime();
+            //Koinzidenz
+            //return;
         }
     }
     Muon_Time = std::min(Muon_Time_Sc1,Muon_Time_Sc2);
