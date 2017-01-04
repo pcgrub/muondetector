@@ -5,7 +5,6 @@
 // Custom User classes
 #include "EventAction.hh"
 #include "ScintHit.hh"
-#include "CopperHit.hh"
 #include "Analysis.hh"
 
 // geant4 classes
@@ -80,6 +79,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     // I will do that later I guess
     G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
 
+
     // fill Histograms
 /*
     G4int n_hit = scintHC1->entries();
@@ -94,6 +94,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
         }
 
 */
+
         // fill ntuples
     // fill the first columns reserved for the first Scintillator
     //G4cout<<  scintHC1->entries() << " Scint1 " <<  scintHC2->entries() << " Scint2 "<< G4endl;
@@ -116,7 +117,8 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     for (G4int i=0;i<scintHC2->entries();i++){
         if(((*scintHC2)[i]->GetName()=="mu+" ||(*scintHC2)[i]->GetName()=="mu-" )&& Muon_Time_Sc2 == 0.){
             Muon_Time_Sc2 = (*scintHC2)[i]->GetTime();
-            //Koinzidenz
+
+            //Coincidence: throw away all data if a muon is detected in the second scint
             //return;
         }
     }
@@ -250,24 +252,4 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             Hit_number++;
         }
     }
-
-    //diagnostics
-    /*
-    G4int printModulo = G4RunManager::GetRunManager()->GetPrintProgress();
-    if ( printModulo==0 || event->GetEventID() % printModulo != 0) return;
-
-    G4PrimaryParticle* primary = event->GetPrimaryVertex(0)->GetPrimary(0);
-    G4cout << G4endl
-           << ">>> Event " << event->GetEventID() << " >>> Simulation truth : "
-           << primary->GetG4code()->GetParticleName()
-           << " " << primary->GetMomentum() << G4endl;
-
-    //ScintHC
-    G4int n_hit = scintHC2->entries();
-    G4cout << "Scint1 has " << n_hit<< " hits" << G4endl;
-    for (G4int i=0;i<n_hit;i++){
-        ScintHit* hit2 = (*scintHC2)[i];
-        hit2->Print();
-    }
-*/
      }

@@ -48,7 +48,6 @@ set(_SCRIPTS
   primary_atmo.mac
         primary_mono.mac
         primary_conc.mac
-  #utils/gen_primary_macro.py
   )
 
 foreach(_script ${_SCRIPTS})

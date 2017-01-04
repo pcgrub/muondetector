@@ -32,6 +32,7 @@ MuonDetectorConstruction::MuonDetectorConstruction():
 
 MuonDetectorConstruction::~MuonDetectorConstruction()
 {
+    // mandatory deletion of the step limit object
     delete fStepLimit;
 }
 
@@ -156,6 +157,7 @@ G4VPhysicalVolume*MuonDetectorConstruction::Construct() {
                     1); // checking overlaps
 
     // Tracking cuts to make sure that there are enough trajectory steps in certain volumes
+    // the trajectory step length will be limited in CopperLog, ScintLog1/2 to 10% of the thickness of each plate
     G4double maxStep = 0.1*PlattenDimZ;
     fStepLimit = new G4UserLimits(maxStep);
     CopperLog->SetUserLimits(fStepLimit);
@@ -171,11 +173,12 @@ void MuonDetectorConstruction::ConstructSDandField() {
     G4SDManager* SDman = G4SDManager::GetSDMpointer();
     G4String SDname;
 
-
+    // set ScintLog1 as a detecting volume
     G4VSensitiveDetector* scintillator1 = new ScintSD(SDname="/scint1");
     SDman->AddNewDetector(scintillator1);
     ScintLog1->SetSensitiveDetector(scintillator1);
 
+    // set ScintLog2 as a detecting volume
     G4VSensitiveDetector* scintillator2 = new ScintSD(SDname="/scint2");
     SDman->AddNewDetector(scintillator2);
     ScintLog2->SetSensitiveDetector(scintillator2);

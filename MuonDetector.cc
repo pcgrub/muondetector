@@ -1,7 +1,8 @@
+
+
 #include <iostream>
 #include "MuonDetectorConstruction.hh"
 #include "MuonActionInitialization.hh"
-#include "TestDetectorConstruction.hh"
 
 #ifdef G4MULTITHREADED
 #include "G4MTRunManager.hh"
@@ -36,18 +37,14 @@ int main(int argc,char** argv) {
 #endif
 
     // Mandatory user initialization classes
-
-    //====================
-    //The Geometry
+    // the geometry class
     runManager->SetUserInitialization(new MuonDetectorConstruction);
 
-    //====================
-    //The Physics
+    // physics class
     G4VModularPhysicsList* physicsList = new FTFP_BERT;
     physicsList->RegisterPhysics(new G4StepLimiterPhysics());
     runManager->SetUserInitialization(physicsList);
 
-    //====================
     // User action initialization
     runManager->SetUserInitialization(new MuonActionInitialization());
 
@@ -89,10 +86,7 @@ int main(int argc,char** argv) {
 #endif
     }
 
-    // Job termination
-    // Free the store: user actions, physics_list and detector_description are
-    // owned and deleted by the run manager, so they should not be deleted
-    // in the main() program !
+   // mandatory deletions
 #ifdef G4VIS_USE
     delete visManager;
 #endif

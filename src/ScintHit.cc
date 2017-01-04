@@ -31,7 +31,6 @@ ScintHit::ScintHit(const ScintHit &right) : G4VHit() {
         fId = right.fId;
         fTime = right.fTime;
         fEnergy  = right.fEnergy;
-        fPLogV = right.fPLogV;
         fOrigin = right.fOrigin;
         fOrgEnergy = right.fOrgEnergy;
         fProcess = right.fProcess;
@@ -43,7 +42,6 @@ const ScintHit& ScintHit::operator=(const ScintHit &right) {
     fId = right.fId;
     fTime = right.fTime;
     fEnergy = right.fEnergy;
-    fPLogV = right.fPLogV;
     fOrigin = right.fOrigin;
     fOrgEnergy = right.fOrgEnergy;
     fProcess = right.fProcess;
@@ -76,9 +74,6 @@ const std::map<G4String,G4AttDef>* ScintHit::GetAttDefs() const
          (*store)["Energy"]
                  = G4AttDef("Energy","Energy","Physics","G4BestUnit","G4double");
 
-         (*store)["LVol"]
-                 = G4AttDef("LVol","Logical Volume","Physics","","G4String");
-
          (*store)["Origin"]
                  = G4AttDef("Origin", "Origin","Physics", "", "G4String");
 
@@ -106,18 +101,11 @@ std::vector<G4AttValue>* ScintHit::CreateAttValues() const
     values->push_back(G4AttValue("ID", fId ,""));
     values->push_back(G4AttValue("Time",G4BestUnit(fTime,"Time"),""));
     values->push_back(G4AttValue("Energy",G4BestUnit(fEnergy,"Energy"),""));
-
-    if (fPLogV)
-        values->push_back(G4AttValue("LVol",fPLogV->GetName(),""));
-    else
-        values->push_back(G4AttValue("LVol"," ",""));
-
     values->push_back(G4AttValue("Origin",fOrigin,""));
     values->push_back(G4AttValue("OrigEnergy",G4BestUnit(fOrgEnergy,"OrigEnergy"),""));
     values->push_back(G4AttValue("Process",fProcess,""));
     values->push_back(G4AttValue("TrackID", fTrack, ""));
     values->push_back(G4AttValue("Momentum", fMomentum, ""));
-
     return values;
 }
 

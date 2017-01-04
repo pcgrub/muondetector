@@ -1,9 +1,0 @@
-# running programm test.cc with geant4 with cmake files
-mkdir build-test
-cd build-test
-source /path/to/geant4.sh
-cmake -DGeant4_DIR=/path/to/geant4.10.01.p03 /path/to/source.code
-make -j4
-./test
- 
-

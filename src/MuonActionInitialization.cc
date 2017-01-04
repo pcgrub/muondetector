@@ -5,7 +5,6 @@
 #include "../include/MuonActionInitialization.hh"
 #include "../include/MuonPrimaryGeneratorAction.hh"
 #include "../include/RunAction.hh"
-#include "../include/TestEventAction.hh"
 #include "../include/EventAction.hh"
 
 MuonActionInitialization::MuonActionInitialization()
@@ -17,7 +16,7 @@ void MuonActionInitialization::BuildForMaster() const {
 
     // called by the master thread. when merging of thread results
     // is needed one should create an instance of Rn action here
-    SetUserAction(new RunAction);
+    //SetUserAction(new RunAction);
 }
 
 void MuonActionInitialization::Build() const {

@@ -49,11 +49,6 @@ public:
 
     G4double GetMomentum() const {return fMomentum;}
 
-
-
-    void SetLogV(G4LogicalVolume* val) { fPLogV = val; }
-    const G4LogicalVolume* GetLogV() const { return fPLogV; }
-
 private:
     G4String fId;
     G4double fTime;
@@ -62,7 +57,6 @@ private:
     G4double fOrgEnergy;
     G4String fProcess;
     G4int fTrack;
-    const G4LogicalVolume* fPLogV;
     G4double fMomentum;
 
 };

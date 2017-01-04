@@ -26,6 +26,7 @@ ScintSD::ScintSD(G4String name)
 ScintSD::~ScintSD() {}
 
 void ScintSD::Initialize(G4HCofThisEvent* hce) {
+    // initiate the hitscollection (where ScintHits are inserted to)
     fHitsCollection = new ScintHitsCollection
             (SensitiveDetectorName,collectionName[0]);
     if (fHCID<0)
@@ -50,8 +51,10 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
     G4double orEn = track->GetVertexKineticEnergy();
     //G4double orEn = track->GetKineticEnergy();
 
-    //
+    // logical volume, where a particle was created
     const G4LogicalVolume* originvol = track->GetLogicalVolumeAtVertex();
+
+    // the particles name and ID(to distinguish particles of same type)
     G4ParticleDefinition* particle = track->GetDefinition();
     G4int trackID = track->GetTrackID();
 
@@ -66,24 +69,19 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
         process = creation->GetProcessName();
     }
 
+    // Name of the origin volume
     G4String origin = originvol->GetName();
 
-
+    // get the momentum unit vector
     G4ThreeVector Momentum = track->GetVertexMomentumDirection();
     //G4cout << "z: " << Momentum.z() << G4endl;
     //time extraction from previous step
     G4StepPoint* preStepPoint = step->GetPreStepPoint();
 
-    // not entirely sure whether I need that
-    G4TouchableHistory* touchable =
-            (G4TouchableHistory*)(preStepPoint->GetTouchable());
-    G4VPhysicalVolume* physical = touchable->GetVolume();
-
     //insert the hits of ScintHit type
     // changed for testing purpose:
     if (name == "e+" || name == "e-" || name=="gamma" || name == "mu+" || name == "mu-") {
         ScintHit *hit = new ScintHit(name, edep, origin, orEn, process, trackID, Momentum.z());
-        hit->SetLogV(physical->GetLogicalVolume());
         hit->SetTime(preStepPoint->GetGlobalTime());
         //hit->Print();
         fHitsCollection->insert(hit);

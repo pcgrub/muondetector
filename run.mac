@@ -1,9 +1,15 @@
-# Defaults:
+# some verbosity options:
 #/run/verbose 1
 #/tracking/verbose 1
+
+# mandatory initializations
 /run/numberOfThreads 4
 /run/initialize
+
+# primary particle source:
 /control/execute primary_conc.mac
-/run/beamOn 10000 
-#
+
+# number of simulated particles:
+/run/beamOn 10000
+
 
