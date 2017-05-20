@@ -15,8 +15,8 @@ def write_hist_file(bins, n, path):
 
 
 #path2 = "/home/piet/Dokumente/measurements/test/from_measurement/"
-path = "/home/piet/Dokumente/measurements/absorption/10m_with_low/"
-path2 = "/home/piet/Dokumente/measurements/absorption/10m_without_low/"
+path = "/mnt/Daten/Documents/Physik Bachelor/Bachelorarbeit/measurements/cali_conc/without_concrete/10m_with_low/"
+path2 = "/mnt/Daten/Documents/Physik Bachelor/Bachelorarbeit/measurements/cali_conc/without_concrete/10m_without_low/"
 #path3 = "/home/piet/Dokumente/measurements/cali_conc/without_concrete/10m_without_low/"
 #path4 = "/home/piet/Dokumente/measurements/cali_conc/10m_normale/"
 
@@ -60,11 +60,11 @@ muon4 = np.concatenate((data12[data12[:, 5] > 2.], data13[data13[:, 5] > 2.], da
 #theta2 = np.arccos(z2)
 #print z
 
-abs = muon[muon[:, 3] > 0.9]
-abs2 = muon2[muon2[:, 3] > 0.9]
+#abs = muon[muon[:, 3] > 0.9]
+#abs2 = muon2[muon2[:, 3] > 0.9]
 #extract energy
-E = abs[:, 2]
-E2 = abs2[:, 2]
+E = muon[:, 3]
+E2 = muon2[:, 3]
 #E3 = muon3[:, 3]
 #E4 = muon4[:, 3]
 #print E
@@ -74,8 +74,8 @@ print E2
 #initialize plotting window
 fig = plt.figure()
 #fig.suptitle("Spektrumveraenderung der Myonen in Beton  $1.5m$ im Vergleich zu Luft")
-ax1 = fig.add_subplot(121)
-ax2 = fig.add_subplot(122)
+#ax1 = fig.add_subplot(121)
+ax2 = fig.add_subplot(111)
 
 #plotting angular distribution
 #n, bins, patches = ax1.hist(theta, 100, histtype="step")
@@ -91,19 +91,19 @@ ax2 = fig.add_subplot(122)
 #ax1.plot(bin_mids, f(bin_mids, *popt))
 
 #plotting energy distribution
-ax1.hist(E, bins=np.logspace(-1.0, 6., 101), histtype="step", label="Absorption")
-ax2.hist(E2, bins=np.logspace(-1.0, 6., 101), histtype="step", label="Absorption")
+#ax1.hist(E, bins=np.logspace(-1.0, 6., 101), histtype="step", label="mit Extrapolation")
+ax2.hist(E2[E2 > 10.], bins=np.logspace(-1.0, 6., 101), histtype="step", label="ohne Extrapolation")
 #ax2.hist(E3, bins=np.logspace(-1.0, 6., 101), histtype="step", label="Luft")
 #ax2.hist(E4, bins=np.logspace(-1.0, 6., 101), histtype="step", label="Beton")
 
-ax1.set_title("Mit Extrapolation")
-ax1.set_xlabel("Energie [MeV]")
-ax1.set_ylabel("Anzahl Hits")
-ax1.set_xscale('log')
-ax1.set_yscale('log')
+#ax1.set_title("Mit Extrapolation")
+#ax1.set_xlabel("Energie [MeV]")
+#ax1.set_ylabel("Anzahl Hits")
+#ax1.set_xscale('log')
+#ax1.set_yscale('log')
 
 #ax2.hist(E2, bins=bins_2, histtype="step", label="air")
-ax2.set_title("Ohne Extrapolation")
+#ax2.set_title("Energiespektrum ")
 ax2.set_xlabel("Energie [MeV]")
 ax2.set_ylabel("Anzahl Hits")
 ax2.set_xscale('log')
@@ -121,6 +121,6 @@ ax2.set_yscale('log')
 #write_hist_file(bins_2, n_2, energy_file_path)
 
 # fitting bin mids and such:
-ax1.legend(loc=2)
+#ax1.legend(loc=2)
 ax2.legend(loc=2)
 plt.show()

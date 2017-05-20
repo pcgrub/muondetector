@@ -16,11 +16,12 @@
 #include "G4SDManager.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4ios.hh"
+#include "G4TrackingManager.hh"
 
 
 
 EventAction::EventAction()
-        : G4UserEventAction(),fSCID1(-1),fSCID2(-1)
+        : G4UserEventAction(),fSCID1(-1),fSCID2(-1), fNeutrinoFound(false)
 {
     // print output for each event global setting
    // G4RunManager::GetRunManager()->SetPrintProgress(1);
@@ -35,11 +36,13 @@ void EventAction::BeginOfEventAction(const G4Event*) {
         //fCUID = sdManager->GetCollectionID("/copper/CopperCol");
         fSCID1 = sdManager->GetCollectionID("scint1/ScintColl");
         fSCID2 = sdManager->GetCollectionID("scint2/ScintColl");
+
+
     }
 }
 
 void EventAction::EndOfEventAction(const G4Event* event) {
-
+    //
     // some exception handling info
     G4HCofThisEvent* hce = event->GetHCofThisEvent();
     if (!hce) {
@@ -78,8 +81,6 @@ void EventAction::EndOfEventAction(const G4Event* event) {
     // get the Analysis manager
     // I will do that later I guess
     G4AnalysisManager* analysisManager = G4AnalysisManager::Instance();
-
-
     // fill Histograms
 /*
     G4int n_hit = scintHC1->entries();
@@ -150,7 +151,11 @@ void EventAction::EndOfEventAction(const G4Event* event) {
 
             // column 4 DecayFlagSc1
             if ((*scintHC1)[i]->GetProcess() == "Decay") { analysisManager->FillNtupleDColumn(4, 1.0); }
-            else if ((*scintHC1)[i]->GetProcess() == "muMinusCaptureAtRest") { analysisManager->FillNtupleDColumn(4, 2.0); }
+            else if ((*scintHC1)[i]->GetProcess() == "muMinusCaptureAtRest") {
+                if (fNeutrinoFound){analysisManager->FillNtupleDColumn(4, 3.0);}
+                else {analysisManager->FillNtupleDColumn(4, 2.0);}
+                }
+            else if ((*scintHC1)[i]->GetProcess() == "muIoni") {analysisManager->FillNtupleDColumn(4, 4.0); }
             else { analysisManager->FillNtupleDColumn(4, 0.0); }
 
             // column 5 ParticeflagSc1
@@ -159,6 +164,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             else if (temp_name == "e-") { analysisManager->FillNtupleDColumn(5, 2.0); }
             else if (temp_name == "mu+") { analysisManager->FillNtupleDColumn(5, 3.0); }
             else if (temp_name == "mu-") { analysisManager->FillNtupleDColumn(5, 4.0); }
+            else if (temp_name == "nu_e") {analysisManager->FillNtupleDColumn(5, 5.0); }
             else { analysisManager->FillNtupleDColumn(5, 0.0); }
 
             //column 6 Origin Volume
@@ -210,7 +216,11 @@ void EventAction::EndOfEventAction(const G4Event* event) {
 
             // column 4 DecayFlagSc2
             if ((*scintHC2)[i]->GetProcess() == "Decay") { analysisManager->FillNtupleDColumn(4, 1.0); }
-            else if ((*scintHC2)[i]->GetProcess() == "muMinusCaptureAtRest") { analysisManager->FillNtupleDColumn(4, 2.0); }
+            else if ((*scintHC2)[i]->GetProcess() == "muMinusCaptureAtRest") {
+                if (fNeutrinoFound){analysisManager->FillNtupleDColumn(4, 3.0);}
+                else {analysisManager->FillNtupleDColumn(4, 2.0);}
+            }
+            else if ((*scintHC2)[i]->GetProcess() == "muIoni") {analysisManager->FillNtupleDColumn(4, 4.0); }
             else { analysisManager->FillNtupleDColumn(4, 0.0); }
 
             // column 5 ParticeflagSc2
@@ -251,5 +261,9 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             E_temp+=(*scintHC2)[i]->GetEnergy();
             Hit_number++;
         }
+
     }
-     }
+    // Reset the Neutrino search from SteppingAction
+    // because it can not be reset there
+    fNeutrinoFound = false;
+}

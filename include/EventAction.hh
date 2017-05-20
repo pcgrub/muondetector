@@ -16,10 +16,12 @@ public:
 
          virtual void BeginOfEventAction(const G4Event*);
          virtual void EndOfEventAction(const G4Event*);
+         void SetNeutrinoFound(G4bool b) {fNeutrinoFound = b;};
 
 private:
          G4int fSCID1;
          G4int fSCID2;
+        G4bool fNeutrinoFound;
 
 };
 
