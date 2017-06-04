@@ -164,7 +164,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             else if (temp_name == "e-") { analysisManager->FillNtupleDColumn(5, 2.0); }
             else if (temp_name == "mu+") { analysisManager->FillNtupleDColumn(5, 3.0); }
             else if (temp_name == "mu-") { analysisManager->FillNtupleDColumn(5, 4.0); }
-            else if (temp_name == "nu_e") {analysisManager->FillNtupleDColumn(5, 5.0); }
+            else if (temp_name == "proton") {analysisManager->FillNtupleDColumn(5, 5.0); }
             else { analysisManager->FillNtupleDColumn(5, 0.0); }
 
             //column 6 Origin Volume
@@ -229,6 +229,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             else if (temp_name == "e-") { analysisManager->FillNtupleDColumn(5, 2.0); }
             else if (temp_name == "mu+") { analysisManager->FillNtupleDColumn(5, 3.0); }
             else if (temp_name == "mu-") { analysisManager->FillNtupleDColumn(5, 4.0); }
+            else if (temp_name == "proton") {analysisManager->FillNtupleDColumn(5, 5.0);}
             else { analysisManager->FillNtupleDColumn(5, 0.0); }
 
             // column 6
