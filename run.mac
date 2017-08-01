@@ -10,6 +10,8 @@
 /control/execute primary_conc.mac
 
 # number of simulated particles:
-/run/beamOn 10000
+#/run/beamOn 10000
 
+#one week
+/run/beamOn 16111872
 

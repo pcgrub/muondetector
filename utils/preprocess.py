@@ -1,6 +1,6 @@
 import numpy as np
 
-path = "/home/piet/Dokumente/allnewmeasurement2017/CSV/"
+path = "/home/piet/Dokumente/build42-testmuon/"
 
 data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")
 data1 = np.genfromtxt(path+"muon_Hits_nt_data_t1.csv", delimiter=",")
@@ -24,15 +24,15 @@ mu_other = mu_nonPrimaries[mu_nonPrimaries[:, 5] > 0.1]
 #primaries_Sc2 = mu_primaries[mu_primaries[:, 7] > 1]
 
 #print len(primaries_Sc2)
-print len(mu_other)
+#print len(mu_other)
 #print len(real_others)
 #print rel_Decay[:, 0]
 #print len(rel_Decay)
-print len(mu_Decay)
+#print len(mu_Decay)
 #print len(mu_primaries) - 2*len(primaries_Sc2)
-print mu_Decay[:, 0]
+#print mu_Decay[:, 0]
 #print primaries_Sc2[:, 0]
-print np.mean(mu_Decay[:, 6])
+#print np.mean(mu_Decay[:, 6])
 #print np.mean(rel_Decay[:, 6])
 
 np.savetxt(path+"decay.csv", mu_Decay, delimiter=",", fmt="%7.7f", newline="\n")

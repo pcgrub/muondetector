@@ -2,7 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 #read in files
-path = "/home/piet/Dokumente/allnewmeasurement2017/CSV/"
+path = "/home/piet/Dokumente/build42-testmuon/"
 #path2 = "/home/piet/Dokumente/measurements/new/org_conc_spec/10k/"
 
 
@@ -32,15 +32,30 @@ bound_Sc2 = bound[bound[:, 7] > 1.1]
 proton_Sc1 = proton[proton[:, 7] < 1.1]
 proton_Sc2 = proton[proton[:, 7] > 1.1]
 
-#print "Capture: " + str(np.shape(capture))
-print "Decay: " + str(np.shape(decay))
-#print "Primaries: " + str(np.shape(primaries))
-#print "Other: " + str(np.shape(other))
-print "Gamma: " + str(np.shape(gamma))
+print ("Total numbers")
+print ("Capture: " + str(np.shape(capture)))
+print ("Decay: " + str(np.shape(decay)))
+#print ("Primaries: " + str(np.shape(primaries)))
+print ("Other: " + str(np.shape(other)))
+print ("Gamma: " + str(np.shape(gamma)))
+print()
+print("--------------------------------------")
+print ("Quantities per Volume")
+print ("Decay SC1 " + str(np.shape(decay_Sc1)))
+print ("Decay SC2 " + str(np.shape(decay_Sc2)))
+print ("Gamma SC1 " + str(np.shape(gamma_Sc1)))
+print ("Gamma SC2 " + str(np.shape(gamma_Sc2)))
+print ("Ionization SC1 " + str(np.shape(ioni_Sc1)))
+print ("Ionization SC2 " + str(np.shape(ioni_Sc2)))
+print ("BoundDecay SC1 " + str(np.shape(bound_Sc1)))
+print ("BoundDecay SC2 " + str(np.shape(bound_Sc2)))
+print ("Proton SC2 " + str(np.shape(proton_Sc2)))
+print ("Proton SC1 " + str(np.shape(proton_Sc1)))
 
-#print len(decay) + len(primaries) + len(capture)
-print len(decay)
-print len(decay[decay[:, 6] == 0.])
+
+#print (len(decay) + len(primaries) + len(capture))
+print (len(decay))
+print (len(decay[decay[:, 6] == 0.]))
 
 
 fig = plt.figure()
