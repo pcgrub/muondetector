@@ -1,49 +1,38 @@
 from matplotlib import pyplot as plt
 import numpy as np
 
+def sc1sc2(mat):
+    """seperates input array for copper, scint1 and scint2"""
+    return  mat[mat[:, 7] == 0], mat[mat[:, 7] == 1], mat[mat[:, 7] == 2]
+
+
 #read in files
-path = "/home/piet/Dokumente/build-testmuon/"
+path = "/Users/piet/Desktop/testmitvakuumdetektoren/"
 
 #path2 = "/home/piet/Dokumente/measurements/new/org_conc_spec/10k/"
 
 
-decay = np.genfromtxt(path+"decay.csv", delimiter=",")
-capture = np.genfromtxt(path+"capture.csv", delimiter=",")
-#primaries = np.genfromtxt(path2+"primaries.csv", delimiter=",")
-other = np.genfromtxt(path+"other.csv", delimiter=",")
+decay = np.genfromtxt(path+"decayelectrons.csv", delimiter=",")
+capture = np.genfromtxt(path+"capturedelectrons.csv", delimiter=",")
+#primaries = np.genfromtxt(path+"muons.csv", delimiter=",")
+other = np.genfromtxt(path+"otherelectrons.csv", delimiter=",")
 gamma = np.genfromtxt(path+"gamma.csv", delimiter=",")
-ioni = np.genfromtxt(path+"ioni.csv", delimiter=",")
-bound = np.genfromtxt(path+"bound.csv", delimiter=",")
-proton = np.genfromtxt(path+"protons.csv", delimiter=",")
-
-#primaries_Sc1 = primaries[primaries[:, 7] < 1.1]
-#primaries_Sc2 = primaries[primaries[:, 7] > 1.1]
-capture_Sc1 = capture[capture[:, 7] == 1]
-capture_Sc2 = capture[capture[:, 7] == 2]
-decay_Sc1 = decay[decay[:, 7] == 1]
-decay_Sc2 = decay[decay[:, 7] == 2]
-other_Sc1 = other[other[:, 7] < 1.1]
-other_Sc2 = other[other[:, 7] > 1.1]
-gamma_Sc1 = gamma[gamma[:, 7] == 1]
-gamma_Sc2 = gamma[gamma[:, 7] == 2]
-ioni_Sc1 = ioni[ioni[:, 7] < 1.1]
-ioni_Sc2 = ioni[ioni[:, 7] > 1.1]
-bound_Sc1 = bound[bound[:, 7] < 1.1]
-bound_Sc2 = bound[bound[:, 7] > 1.1]
-proton_Sc1 = proton[proton[:, 7] < 1.1]
-proton_Sc2 = proton[proton[:, 7] > 1.1]
-
+ioni = np.genfromtxt(path+"ionizationelectrons.csv", delimiter=",")
+bound = np.genfromtxt(path+"bounddecayelectrons.csv", delimiter=",")
+otherproton = np.genfromtxt(path+"otherprot.csv", delimiter=",")
+#ncap = np.genfromtxt(path+"ncapprotons.csv", delimiter=",")
+capprot = np.genfromtxt(path+"captureprotons.csv", delimiter=",")
 print ("Total numbers")
 print ("Capture: " + str(len(capture)))
 print ("Decay: " + str(len(decay)))
 #print ("Primaries: " + str(len(primaries)))
 print ("Other: " + str(len(other)))
 print ("Gamma: " + str(len(gamma)))
-print ("Protons: " + str(len(proton)))
+#print ("Protons: " + str(len(proton)))
 print()
 print("--------------------------------------")
 print ("Quantities per Volume")
-print ("Decay SC1 " + str(len(decay_Sc1)))
+#print ("Decay SC1 " + str(len(sc1sc2(decay))))
 print ("Decay SC2 " + str(len(decay_Sc2)))
 print ("Gamma SC1 " + str(len(gamma_Sc1)))
 print ("Gamma SC2 " + str(len(gamma_Sc2)))
@@ -51,9 +40,12 @@ print ("Ionization SC1 " + str(len(ioni_Sc1)))
 print ("Ionization SC2 " + str(len(ioni_Sc2)))
 print ("BoundDecay SC1 " + str(len(bound_Sc1)))
 print ("BoundDecay SC2 " + str(len(bound_Sc2)))
-print ("Proton SC2 " + str(len(proton_Sc2)))
-print ("Proton SC1 " + str(len(proton_Sc1)))
-
+#print ("Proton SC2 " + str(len(proton_Sc2)))
+#print ("Proton SC1 " + str(len(proton_Sc1)))
+print( "-------------------------------------")
+print("Test:")
+print(str(len(other_Sc1)+len(other_Sc2)))
+print(str(len(sc1sc2(other)[1])+len(sc1sc2(other)[2])))
 
 #print (len(decay) + len(primaries) + len(capture))
 #print (len(decay))

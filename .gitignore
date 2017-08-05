@@ -2,4 +2,4 @@
 measurements/*
 .idea/*
 utils/.idea/*
-.DS_Store
+*.DS_Store
