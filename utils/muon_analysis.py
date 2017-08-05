@@ -2,7 +2,8 @@ from matplotlib import pyplot as plt
 import numpy as np
 
 #read in files
-path = "/home/piet/Dokumente/build42-testmuon/"
+path = "/home/piet/Dokumente/build-testmuon/"
+
 #path2 = "/home/piet/Dokumente/measurements/new/org_conc_spec/10k/"
 
 
@@ -17,14 +18,14 @@ proton = np.genfromtxt(path+"protons.csv", delimiter=",")
 
 #primaries_Sc1 = primaries[primaries[:, 7] < 1.1]
 #primaries_Sc2 = primaries[primaries[:, 7] > 1.1]
-capture_Sc1 = capture[capture[:, 7] < 1.1]
-capture_Sc2 = capture[capture[:, 7] > 1.1]
-decay_Sc1 = decay[decay[:, 7] < 1.1]
-decay_Sc2 = decay[decay[:, 7] > 1.1]
+capture_Sc1 = capture[capture[:, 7] == 1]
+capture_Sc2 = capture[capture[:, 7] == 2]
+decay_Sc1 = decay[decay[:, 7] == 1]
+decay_Sc2 = decay[decay[:, 7] == 2]
 other_Sc1 = other[other[:, 7] < 1.1]
 other_Sc2 = other[other[:, 7] > 1.1]
-gamma_Sc1 = gamma[gamma[:, 7] < 1.1]
-gamma_Sc2 = gamma[gamma[:, 7] > 1.1]
+gamma_Sc1 = gamma[gamma[:, 7] == 1]
+gamma_Sc2 = gamma[gamma[:, 7] == 2]
 ioni_Sc1 = ioni[ioni[:, 7] < 1.1]
 ioni_Sc2 = ioni[ioni[:, 7] > 1.1]
 bound_Sc1 = bound[bound[:, 7] < 1.1]
@@ -33,29 +34,30 @@ proton_Sc1 = proton[proton[:, 7] < 1.1]
 proton_Sc2 = proton[proton[:, 7] > 1.1]
 
 print ("Total numbers")
-print ("Capture: " + str(np.shape(capture)))
-print ("Decay: " + str(np.shape(decay)))
-#print ("Primaries: " + str(np.shape(primaries)))
-print ("Other: " + str(np.shape(other)))
-print ("Gamma: " + str(np.shape(gamma)))
+print ("Capture: " + str(len(capture)))
+print ("Decay: " + str(len(decay)))
+#print ("Primaries: " + str(len(primaries)))
+print ("Other: " + str(len(other)))
+print ("Gamma: " + str(len(gamma)))
+print ("Protons: " + str(len(proton)))
 print()
 print("--------------------------------------")
 print ("Quantities per Volume")
-print ("Decay SC1 " + str(np.shape(decay_Sc1)))
-print ("Decay SC2 " + str(np.shape(decay_Sc2)))
-print ("Gamma SC1 " + str(np.shape(gamma_Sc1)))
-print ("Gamma SC2 " + str(np.shape(gamma_Sc2)))
-print ("Ionization SC1 " + str(np.shape(ioni_Sc1)))
-print ("Ionization SC2 " + str(np.shape(ioni_Sc2)))
-print ("BoundDecay SC1 " + str(np.shape(bound_Sc1)))
-print ("BoundDecay SC2 " + str(np.shape(bound_Sc2)))
-print ("Proton SC2 " + str(np.shape(proton_Sc2)))
-print ("Proton SC1 " + str(np.shape(proton_Sc1)))
+print ("Decay SC1 " + str(len(decay_Sc1)))
+print ("Decay SC2 " + str(len(decay_Sc2)))
+print ("Gamma SC1 " + str(len(gamma_Sc1)))
+print ("Gamma SC2 " + str(len(gamma_Sc2)))
+print ("Ionization SC1 " + str(len(ioni_Sc1)))
+print ("Ionization SC2 " + str(len(ioni_Sc2)))
+print ("BoundDecay SC1 " + str(len(bound_Sc1)))
+print ("BoundDecay SC2 " + str(len(bound_Sc2)))
+print ("Proton SC2 " + str(len(proton_Sc2)))
+print ("Proton SC1 " + str(len(proton_Sc1)))
 
 
 #print (len(decay) + len(primaries) + len(capture))
-print (len(decay))
-print (len(decay[decay[:, 6] == 0.]))
+#print (len(decay))
+#print (len(decay[decay[:, 6] == 0.]))
 
 
 fig = plt.figure()
@@ -93,14 +95,14 @@ ax2.plot(bound_Sc2[:, 1], bound_Sc2[:, 2], 'r.', label="$e^+/e^-$(gebundener Zer
 ax1.plot(proton_Sc1[:, 1], proton_Sc1[:, 2], 'g.', label="Protonen", ms=3)
 ax2.plot(proton_Sc2[:, 1], proton_Sc2[:, 2], 'g.', label="Protonen", ms=3)
 
-#ax1.plot(ioni_Sc1[:, 1], ioni_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
-#ax2.plot(ioni_Sc2[:, 1], ioni_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+ax1.plot(ioni_Sc1[:, 1], ioni_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+ax2.plot(ioni_Sc2[:, 1], ioni_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
 
-#ax1.plot(other_Sc1[:, 1], other_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
-#ax2.plot(other_Sc2[:, 1], other_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+ax1.plot(other_Sc1[:, 1], other_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+ax2.plot(other_Sc2[:, 1], other_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
 
-#ax1.plot(capture_Sc1[:, 1], capture_Sc1[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
-#ax2.plot(capture_Sc2[:, 1], capture_Sc2[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
+ax1.plot(capture_Sc1[:, 1], capture_Sc1[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
+ax2.plot(capture_Sc2[:, 1], capture_Sc2[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
 
 #ax1.axhline(y=0.0006, color='k', label="Schwelle")
 #ax2.axhline(y=0.0006, color='k', label="Schwelle")
@@ -113,5 +115,5 @@ ax2.axvline(x=2000., color='k', linestyle="--", label="Schwelle")
 ax1.legend(loc=2)
 ax2.legend(loc=2)
 plt.tight_layout()
-plt.show()
+#plt.show()
 
