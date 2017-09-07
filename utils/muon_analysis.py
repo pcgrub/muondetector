@@ -1,56 +1,90 @@
 from matplotlib import pyplot as plt
 import numpy as np
+import time as t
 
-def sc1sc2(mat):
-    """seperates input array for copper, scint1 and scint2"""
-    return  mat[mat[:, 7] == 0], mat[mat[:, 7] == 1], mat[mat[:, 7] == 2]
+def sc1sc2(mat, column=7):
+    """seperates input array for copper, scint1 and scint2 for volume in
+    which detected for column=7 or origin volume column=6"""
+    if (column==6):
+        return  mat[mat[:, column] == 1], mat[mat[:, column] == 3], mat[mat[:, column] == 2]
+    return  mat[mat[:, column] == 1], mat[mat[:, column] == 2], mat[mat[:, column] == 3]
 
+def timecoumn(mat):
+    return mat[:,1]
+def write_analysis_file(data,CreationType):
+   
+    VolumeType = np.array(["SC1", "SC2", "Cu"])
+
+    now = t.strftime("%Y-%m-%dT%H:%M:%SZ")
+    f = open(path+"muondetector_analysis.txt", "w")
+    f.write("Muon detector analysis from " + path + "\n")
+    f.write("finished at " + now + "\n")
+    f.write("\n")
+    f.write("\n")
+    f.write ("Total numbers by detector\n")
+    f.write ("----------------------------------------\n")
+    for i in range(len(CreationType)):
+        if data[i] is not None:
+            for d in range(len(VolumeType)):
+                f.write(CreationType[i]+ " " + VolumeType[d] + ": " + str(len(sc1sc2(data[i])[d]))+ "\n")
+                f.write("----------------------------------------\n")
+
+    f.write ("****************************************\n")
+    f.write ("Total numbers by origin\n")
+    f.write ("----------------------------------------\n")
+    for i in range(len(CreationType)):
+        if data[i] is not None:
+            for d in range(len(VolumeType)):
+                f.write(CreationType[i]+ " " + VolumeType[d] + ": " + str(len(sc1sc2(data[i], column=6)[d]))+"\n")
+                f.write("----------------------------------------\n")
+    f.close()
 
 #read in files
-path = "/Users/piet/Desktop/testmitvakuumdetektoren/"
-
-#path2 = "/home/piet/Dokumente/measurements/new/org_conc_spec/10k/"
+path = "/mnt/Daten/Documents/allnewmeasurement2017/protonmeasurement/neutron/normal/"
 
 
-decay = np.genfromtxt(path+"decayelectrons.csv", delimiter=",")
-capture = np.genfromtxt(path+"capturedelectrons.csv", delimiter=",")
-#primaries = np.genfromtxt(path+"muons.csv", delimiter=",")
-other = np.genfromtxt(path+"otherelectrons.csv", delimiter=",")
-gamma = np.genfromtxt(path+"gamma.csv", delimiter=",")
-ioni = np.genfromtxt(path+"ionizationelectrons.csv", delimiter=",")
-bound = np.genfromtxt(path+"bounddecayelectrons.csv", delimiter=",")
-otherproton = np.genfromtxt(path+"otherprot.csv", delimiter=",")
-#ncap = np.genfromtxt(path+"ncapprotons.csv", delimiter=",")
-capprot = np.genfromtxt(path+"captureprotons.csv", delimiter=",")
-print ("Total numbers")
-print ("Capture: " + str(len(capture)))
-print ("Decay: " + str(len(decay)))
-#print ("Primaries: " + str(len(primaries)))
-print ("Other: " + str(len(other)))
-print ("Gamma: " + str(len(gamma)))
-#print ("Protons: " + str(len(proton)))
-print()
-print("--------------------------------------")
-print ("Quantities per Volume")
-#print ("Decay SC1 " + str(len(sc1sc2(decay))))
-print ("Decay SC2 " + str(len(decay_Sc2)))
-print ("Gamma SC1 " + str(len(gamma_Sc1)))
-print ("Gamma SC2 " + str(len(gamma_Sc2)))
-print ("Ionization SC1 " + str(len(ioni_Sc1)))
-print ("Ionization SC2 " + str(len(ioni_Sc2)))
-print ("BoundDecay SC1 " + str(len(bound_Sc1)))
-print ("BoundDecay SC2 " + str(len(bound_Sc2)))
-#print ("Proton SC2 " + str(len(proton_Sc2)))
-#print ("Proton SC1 " + str(len(proton_Sc1)))
-print( "-------------------------------------")
-print("Test:")
-print(str(len(other_Sc1)+len(other_Sc2)))
-print(str(len(sc1sc2(other)[1])+len(sc1sc2(other)[2])))
+data = np.empty(14, dtype=np.ndarray)
+# 0 decay electrons/positrons
+data[0]= np.genfromtxt(path+"decayelectrons.csv", delimiter=",")
 
-#print (len(decay) + len(primaries) + len(capture))
-#print (len(decay))
-#print (len(decay[decay[:, 6] == 0.]))
+# 1 Capture electrons
+data[1] = np.genfromtxt(path+"capturedelectrons.csv", delimiter=",")
 
+# 2 primary particles(muons)
+# data[2] = np.genfromtxt(path+"muons.csv", delimiter=",")
+
+# 3 electrons from showers
+data[3] = np.genfromtxt(path+"otherelectrons.csv", delimiter=",")
+
+# 4 photons
+data[4] = np.genfromtxt(path+"gamma.csv", delimiter=",")
+
+# 5 electrons from ionization
+data[5] = np.genfromtxt(path+"ionizationelectrons.csv", delimiter=",")
+
+# 6 electrons from bound decay
+data[6] = np.genfromtxt(path+"bounddecayelectrons.csv", delimiter=",")
+
+#  7 Protons from muonNuclear
+data[7] = np.genfromtxt(path+"muonNuclear.csv", delimiter=",")
+
+# 8 Protons from photon nuclear
+data[8] = np.genfromtxt(path+"photonNuclear.csv", delimiter=",")
+
+# 9 Protons from proton Inelastic
+data[9] = np.genfromtxt(path+"protonInelastic.csv", delimiter=",")
+
+# 10 protons from neutron Inelastic
+data[10] = np.genfromtxt(path+"neutronInelastic.csv", delimiter=",")
+
+# 11 Protons from muon capture
+data[11] = np.genfromtxt(path+"captureprotons.csv", delimiter=",")
+
+# 12 protons from other processes
+data[12] = np.genfromtxt(path+"otherprot.csv", delimiter=",")
+
+# 13 neutrons
+data[13] = np.genfromtxt(path+"neutron.csv", delimiter=",")
 
 fig = plt.figure()
 ax1 = fig.add_subplot(121)
@@ -60,52 +94,98 @@ ax1.set_title("SC1")
 ax2.set_title("SC2")
 
 ax1.set_xlabel("Zeit [ns]")
-#ax1.set_ylabel("$\Delta E$ $[MeV]$")
-ax1.set_ylabel("$E$ $[MeV]$")
+#ax1.set_ylabel("$E$ $[MeV]$")
 ax2.set_xlabel("Zeit [ns]")
 #ax2.set_ylabel("$\Delta E$ $[MeV]$")
 
 
-ax1.set_xscale("log")
-ax2.set_xscale("log")
-ax1.set_yscale("log")
-ax2.set_yscale("log")
 
+CreationType = np.array(["$e^+/e^-$ decay", "electron from muon capture", "muons",
+                         "shower electron", "gamma",
+                         "electron from ionization", "electron from bound decay",
+                         "proton from muonNuclear", "proton from photonNuclear",
+                         "proton from protonInelastic", "proton from neutronInelastic",
+                         "proton from muonCapture",
+                         "proton from hadElastic", "neutron"])
+
+
+nmax = 2500
+tmax = 10000
+ax1.set_xlim((0,tmax))
+ax1.set_ylim((0,nmax))
+ax2.set_xlim((0,tmax))
+ax2.set_ylim((0,nmax))
+
+#ax1.set_xscale("log")
+#ax2.set_xscale("log")
+#ax1.set_yscale("log")
+#ax2.set_yscale("log")
+
+
+
+n = 100
+bins = np.linspace(0.,tmax, n+1)
+
+
+
+#decay
+
+for i in [0,1,4,6,7,8,9,10,11,12]:
+    ax1.hist(sc1sc2(data[i])[0][:,1], bins, label=CreationType[i], stacked=True)
+    ax2.hist(sc1sc2(data[i])[1][:,1], bins , label=CreationType[i], stacked=True)
+
+print("normal decay")
+dec_times = np.append(sc1sc2(data[0])[0][:,1],sc1sc2(data[0])[0][:,1])
+print(np.mean(dec_times))
+print (np.std(dec_times)/np.sqrt(len(dec_times)))
+
+times = np.append(sc1sc2(data[6])[0][:,1],sc1sc2(data[6])[0][:,1])
+rel = times[times>10]
+
+print ("bound decay mean and error: ")
+print(np.mean(rel)-10)
+print(np.std(rel)/np.sqrt(len(rel))) 
+
+
+print ("proton mean and error: ")
+prot_times = np.append(sc1sc2(data[12])[0][:,1],sc1sc2(data[12])[0][:,1])
+print(np.mean(prot_times))
+print(np.std(prot_times)/np.sqrt(len(prot_times))) 
 #ax1.plot(primaries_Sc1[:, 1], primaries_Sc1[:, 2], 'b.', label="$\mu^+/\mu^-$", ms=3)
 #ax2.plot(primaries_Sc2[:, 1], primaries_Sc2[:, 2], 'b.', label="$\mu^+/\mu^-$", ms=3)
 
-ax1.set_xlim(0.01, 100000)
-ax2.set_xlim(0.01, 100000)
-ax1.set_ylim(0.0001, 100)
-ax2.set_ylim(0.0001, 100)
-ax1.plot(decay_Sc1[:, 1], decay_Sc1[:, 2], 'r.', label="$e^+/e^-$(freier Zerfall)", ms=3)
-ax2.plot(decay_Sc2[:, 1], decay_Sc2[:, 2], 'r.', label="$e^+/e^-$(freier Zerfall)", ms=3)
+#ax1.set_xlim(0.01, 100000)
+#ax2.set_xlim(0.01, 100000)
+#ax1.set_ylim(0.0001, 100)
+#ax2.set_ylim(0.0001, 100)
+#ax1.plot(decay_Sc1[:, 1], decay_Sc1[:, 2], 'r.', label="$e^+/e^-$(freier Zerfall)", ms=3)
+#ax2.plot(decay_Sc2[:, 1], decay_Sc2[:, 2], 'r.', label="$e^+/e^-$(freier Zerfall)", ms=3)
 
-ax1.plot(bound_Sc1[:, 1], bound_Sc1[:, 2], 'r.', label="$e^+/e^-$(gebundener Zerfall)", ms=3)
-ax2.plot(bound_Sc2[:, 1], bound_Sc2[:, 2], 'r.', label="$e^+/e^-$(gebundener Zerrfall)", ms=3)
+#ax1.plot(bound_Sc1[:, 1], bound_Sc1[:, 2], 'r.', label="$e^+/e^-$(gebundener Zerfall)", ms=3)
+#ax2.plot(bound_Sc2[:, 1], bound_Sc2[:, 2], 'r.', label="$e^+/e^-$(gebundener Zerrfall)", ms=3)
 
-ax1.plot(proton_Sc1[:, 1], proton_Sc1[:, 2], 'g.', label="Protonen", ms=3)
-ax2.plot(proton_Sc2[:, 1], proton_Sc2[:, 2], 'g.', label="Protonen", ms=3)
+#ax1.plot(proton_Sc1[:, 1], proton_Sc1[:, 2], 'g.', label="Protonen", ms=3)
+#ax2.plot(proton_Sc2[:, 1], proton_Sc2[:, 2], 'g.', label="Protonen", ms=3)
 
-ax1.plot(ioni_Sc1[:, 1], ioni_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
-ax2.plot(ioni_Sc2[:, 1], ioni_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+#ax1.plot(ioni_Sc1[:, 1], ioni_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+#ax2.plot(ioni_Sc2[:, 1], ioni_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
 
-ax1.plot(other_Sc1[:, 1], other_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
-ax2.plot(other_Sc2[:, 1], other_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+#ax1.plot(other_Sc1[:, 1], other_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
+#ax2.plot(other_Sc2[:, 1], other_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
 
-ax1.plot(capture_Sc1[:, 1], capture_Sc1[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
-ax2.plot(capture_Sc2[:, 1], capture_Sc2[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
+#ax1.plot(capture_Sc1[:, 1], capture_Sc1[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
+#ax2.plot(capture_Sc2[:, 1], capture_Sc2[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
 
 #ax1.axhline(y=0.0006, color='k', label="Schwelle")
 #ax2.axhline(y=0.0006, color='k', label="Schwelle")
-ax1.axvline(x=2000., color='k', linestyle="--", label="Schwelle")
-ax2.axvline(x=2000., color='k', linestyle="--", label="Schwelle")
+#ax1.axvline(x=2000., color='k', linestyle="--", label="Schwelle")
+#ax2.axvline(x=2000., color='k', linestyle="--", label="Schwelle")
 
 #ax1.plot(gamma_Sc1[:, 1], gamma_Sc1[:, 3], 'b.', label="Photonen", ms=3)
 #ax2.plot(gamma_Sc2[:, 1], gamma_Sc2[:, 3], 'b.', label="Photonen", ms=3)
 
-ax1.legend(loc=2)
-ax2.legend(loc=2)
+ax1.legend(loc=1)
+ax2.legend(loc=1)
 plt.tight_layout()
-#plt.show()
+plt.show()
 

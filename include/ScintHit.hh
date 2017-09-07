@@ -20,7 +20,7 @@ class ScintHit :public G4VHit{
 
 public:
     ScintHit(G4String name, G4double e, G4String org, G4double eorg, G4String proc, G4int track,
-    G4double momz);
+             G4double momz, G4int parent);
     ScintHit(const ScintHit &right);
     virtual ~ScintHit();
 
@@ -49,6 +49,8 @@ public:
 
     G4double GetMomentum() const {return fMomentum;}
 
+    G4int GetParent() const {return fParent;}
+
 private:
     G4String fId;
     G4double fTime;
@@ -58,6 +60,7 @@ private:
     G4String fProcess;
     G4int fTrack;
     G4double fMomentum;
+    G4int fParent;
 
 };
 

@@ -19,10 +19,10 @@
 G4ThreadLocal G4Allocator<ScintHit>* ScintHitAllocator=0;
 
 ScintHit::ScintHit(G4String name, G4double e, G4String org,
-                   G4double eorg, G4String proc, G4int track, G4double momz)
+                   G4double eorg, G4String proc, G4int track, G4double momz, G4int parent)
         : G4VHit(), fId(name), fTime(0.0), fEnergy(e),
           fOrigin(org), fOrgEnergy(eorg), fProcess(proc),
-          fTrack(track), fMomentum(momz)
+          fTrack(track), fMomentum(momz), fParent(parent)
 {}
 
 ScintHit::~ScintHit() {}
@@ -36,6 +36,7 @@ ScintHit::ScintHit(const ScintHit &right) : G4VHit() {
         fProcess = right.fProcess;
         fTrack = right.fTrack;
         fMomentum = right.fMomentum;
+        fParent = right.fParent;
 }
 
 const ScintHit& ScintHit::operator=(const ScintHit &right) {
@@ -47,6 +48,7 @@ const ScintHit& ScintHit::operator=(const ScintHit &right) {
     fProcess = right.fProcess;
     fTrack = right.fTrack;
     fMomentum = right.fMomentum;
+    fParent = right.fParent;
     return *this;
 }
 
@@ -89,6 +91,9 @@ const std::map<G4String,G4AttDef>* ScintHit::GetAttDefs() const
          (*store)["Momentumz"]
                  = G4AttDef("Momentum", "Momentum Vector", "Physics", "", "G4double");
 
+         (*store)["Parent"]
+           = G4AttDef("ParentID", "ParentID", "Physics", "", "G4int");
+
      }
      return store;
  }
@@ -106,6 +111,7 @@ std::vector<G4AttValue>* ScintHit::CreateAttValues() const
     values->push_back(G4AttValue("Process",fProcess,""));
     values->push_back(G4AttValue("TrackID", fTrack, ""));
     values->push_back(G4AttValue("Momentum", fMomentum, ""));
+    values->push_back(G4AttValue("ParentID", fParent, ""));
     return values;
 }
 

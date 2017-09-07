@@ -1,6 +1,6 @@
 import numpy as np
 
-path = "/home/piet/Dokumente/build-testmuon/"
+path = "/mnt/Daten/Documents/allnewmeasurement2017/protonmeasurement/neutron/normal/"
 
 data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")
 data1 = np.genfromtxt(path+"muon_Hits_nt_data_t1.csv", delimiter=",")
@@ -13,10 +13,15 @@ electrons = m[np.logical_or((m[:, 5] == 1),(m[:,5] == 2))]
 muons = m[np.logical_or((m[:, 5] == 3),(m[:,5] == 4))]
 protons = m[m[:,5] == 5]
 gamma = m[m[:,5] == 0]
+neutron = m[m[:,5] == 6]
 
-ncap = protons[protons[:,4]== 5]
+muNuc = protons[protons[:,4]== 5]
+phNuc = protons[protons[:,4]== 6]
+prIn = protons[protons[:,4]== 7]
+nIn = protons[protons[:,4]== 8]
 captureprot = protons[protons[:,4]== 2]
-otherprot = protons[np.logical_and((protons[:,4]!= 5),(protons[:,4]!=2))]
+
+otherprot = protons[np.logical_and((protons[:,4] < 5),(protons[:,4]!=2))]
 
 decay = electrons[electrons[:, 4] == 1]
 capture = electrons[electrons[:, 4] == 2]
@@ -33,11 +38,14 @@ print("Photons: " + str(len(gamma)))
 np.savetxt(path+"decayelectrons.csv", decay, delimiter=",", fmt="%7.7f", newline="\n")
 np.savetxt(path+"capturedelectrons.csv", capture, delimiter=",", fmt="%7.7f", newline="\n")
 np.savetxt(path+"muons.csv", muons, delimiter=",", fmt="%7.7f", newline="\n")
-np.savetxt(path+"ncapprotons.csv", ncap, delimiter=",", fmt="%7.7f", newline="\n")
+np.savetxt(path+"muonNuclear.csv", muNuc, delimiter=",", fmt="%7.7f", newline="\n")
+np.savetxt(path+"photonNuclear.csv", phNuc, delimiter=",", fmt="%7.7f", newline="\n")
+np.savetxt(path+"protonInelastic.csv", prIn, delimiter=",", fmt="%7.7f", newline="\n")
+np.savetxt(path+"neutronInelastic.csv", nIn, delimiter=",", fmt="%7.7f", newline="\n")
 np.savetxt(path+"captureprotons.csv", captureprot, delimiter=",", fmt="%7.7f", newline="\n")
 np.savetxt(path+"otherprot.csv", otherprot, delimiter=",", fmt="%7.7f", newline="\n")
 np.savetxt(path+"gamma.csv", gamma, delimiter=",", fmt="%7.7f", newline="\n")
 np.savetxt(path+"otherelectrons.csv", other, delimiter=",", fmt="%7.7f", newline="\n")
 np.savetxt(path+"bounddecayelectrons.csv", bound, delimiter=",", fmt="%7.7f", newline="\n")
 np.savetxt(path+"ionizationelectrons.csv", ioni, delimiter=",", fmt="%7.7f", newline="\n")
-
+np.savetxt(path+"neutron.csv", neutron, delimiter=",", fmt="%7.7f", newline="\n")

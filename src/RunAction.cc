@@ -20,8 +20,34 @@ RunAction::RunAction(): G4UserRunAction() {
     analysisManager->SetVerboseLevel(1);
     analysisManager->SetFileName("muon_Hits");
 
-    //analysisManager->CreateH1("Chamber1","Drift Chamber 1 # Hits", 50, 0., 7); // h1 Id = 0
-    //analysisManager->CreateH1("Chamber2","Drift Chamber 2 # Hits", 50, 0., 7); // h1 Id = 1
+    G4int n_bins = 100;
+    G4double upper_time_limit = 10.*us;
+    G4double lower_time_limit = 0.;
+
+    analysisManager->CreateH1("el_dec1","e+/e- from decay SC1 time", n_bins ,
+                              lower_time_limit, upper_time_limit); // h1 Id = 0
+    analysisManager->CreateH1("el_ioni1","e- from ionization SC1 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 1
+    analysisManager->CreateH1("el_bound1","e- from bound decay SC1 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 2
+    analysisManager->CreateH1("el_cap1","e- from capture SC1 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 3
+    analysisManager->CreateH1("prot1","protons SC1 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 4
+    analysisManager->CreateH1("gamma1","gamma SC1 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 5
+    analysisManager->CreateH1("el_dec2","e+/e- from decay SC2 time", n_bins ,
+                              lower_time_limit, upper_time_limit); // h1 Id = 6
+    analysisManager->CreateH1("el_ioni2","e- from ionization SC2 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 7
+    analysisManager->CreateH1("el_bound2","e- from bound decay SC2 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 8
+    analysisManager->CreateH1("el_cap2"," e- from capture SC2 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 9
+    analysisManager->CreateH1("prot2","protons SC2 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 11
+    analysisManager->CreateH1("gamma2","gamma SC2 time", n_bins,
+                              lower_time_limit, upper_time_limit); // h1 Id = 12
 
 
     //Creating ntuple
@@ -36,6 +62,7 @@ RunAction::RunAction(): G4UserRunAction() {
     analysisManager->CreateNtupleDColumn("Detector"); // column Id = 7
     analysisManager->CreateNtupleDColumn("z-Momentum"); // column Id = 8
     analysisManager->CreateNtupleDColumn("Muon-relative Time"); // column Id = 9
+    analysisManager->CreateNtupleDColumn("ParentID"); // column Id = 10
     analysisManager->FinishNtuple();
 }
 RunAction::~RunAction(){

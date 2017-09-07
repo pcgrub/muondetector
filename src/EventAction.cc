@@ -54,7 +54,9 @@ void EventAction::EndOfEventAction(const G4Event* event) {
         return;
     }
 
-    // Get hits collections
+    // Get hitastic
+G4WT0 >     1    -4.56    -69.8     28.6      4.43   0.0244     10.7      10.7   2-Copper1 hadElastic
+s collections
     // initiate all hit collections in this manner:
     ScintHitsCollection* scintHC1
             = static_cast <ScintHitsCollection*>(hce->GetHC(fSCID1));
@@ -150,13 +152,19 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             analysisManager->FillNtupleDColumn(3, (*scintHC1)[i]->GetOriginalKineticEnergy());
 
             // column 4 DecayFlagSc1
-            if ((*scintHC1)[i]->GetProcess() == "Decay") { analysisManager->FillNtupleDColumn(4, 1.0); }
-            else if ((*scintHC1)[i]->GetProcess() == "muMinusCaptureAtRest") {
+            G4String process = (*scintHC1)[i]->GetProcess();
+
+            if (process == "Decay"){analysisManager->FillNtupleDColumn(4, 1.0);}
+            else if (process == "muMinusCaptureAtRest") {
                 if (fNeutrinoFound){analysisManager->FillNtupleDColumn(4, 3.0);}
                 else {analysisManager->FillNtupleDColumn(4, 2.0);}
-                }
-            else if ((*scintHC1)[i]->GetProcess() == "muIoni") {analysisManager->FillNtupleDColumn(4, 4.0); }
-            else { analysisManager->FillNtupleDColumn(4, 0.0); }
+            }
+            else if (process == "muIoni") {analysisManager->FillNtupleDColumn(4, 4.0); }
+            else if (process == "muonNuclear"){ analysisManager->FillNtupleDColumn(4, 5.0);}
+            else if (process == "photonNuclear"){ analysisManager->FillNtupleDColumn(4, 6.0);}
+            else if (process == "protonInelastic"){ analysisManager->FillNtupleDColumn(4, 7.0);}
+            else if (process == "neutronInelastic"){ analysisManager->FillNtupleDColumn(4, 8.0);}
+            else {analysisManager->FillNtupleDColumn(4, 0.0);}
 
             // column 5 ParticeflagSc1
             G4String temp_name = (*scintHC1)[i]->GetName();
@@ -165,6 +173,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             else if (temp_name == "mu+") { analysisManager->FillNtupleDColumn(5, 3.0); }
             else if (temp_name == "mu-") { analysisManager->FillNtupleDColumn(5, 4.0); }
             else if (temp_name == "proton") {analysisManager->FillNtupleDColumn(5, 5.0); }
+            else if (temp_name == "neutron") {analysisManager->FillNtupleDColumn(5, 6.0);}
             else { analysisManager->FillNtupleDColumn(5, 0.0); }
 
             //column 6 Origin Volume
@@ -179,6 +188,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             //Scintillator number
             analysisManager->FillNtupleDColumn(7, 1.0);
 
+
             // Get a sense of the angular distribution
             G4double mom = (*scintHC1)[i]->GetMomentum();
             //G4double angle = -mom.getZ();
@@ -189,6 +199,20 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             analysisManager->FillNtupleDColumn(9,Hit_Time-Muon_Time);
 
             analysisManager->AddNtupleRow();
+
+            // Fill the histograms for SC1
+            if (temp_name == "e+" || temp_name == "e-"){
+              if (process == "Decay"){analysisManager->FillH1(0, Hit_Time);}
+              else if (process == "muMinusCaptureAtRest") {
+                if (fNeutrinoFound){analysisManager->FillH1(2, Hit_Time);}
+                else {analysisManager->FillH1(3, Hit_Time);}
+              }
+              else if (process == "muIoni"){analysisManager->FillH1(1, Hit_Time);}
+            }
+            else if (temp_name == "proton") {analysisManager->FillH1(4, Hit_Time);}
+            else if (temp_name == "gamma") {analysisManager->FillH1(5, Hit_Time);}
+
+            //reinit of temporary variables
             E_temp = 0.;
             Hit_number = 0;
         }
@@ -214,13 +238,18 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             // column 3 OriginalEnergySc2
             analysisManager->FillNtupleDColumn(3, (*scintHC2)[i]->GetOriginalKineticEnergy());
 
+            G4String process = (*scintHC2)[i]->GetProcess();
             // column 4 DecayFlagSc2
-            if ((*scintHC2)[i]->GetProcess() == "Decay") { analysisManager->FillNtupleDColumn(4, 1.0); }
-            else if ((*scintHC2)[i]->GetProcess() == "muMinusCaptureAtRest") {
+            if (process == "Decay") { analysisManager->FillNtupleDColumn(4, 1.0); }
+            else if (process == "muMinusCaptureAtRest") {
                 if (fNeutrinoFound){analysisManager->FillNtupleDColumn(4, 3.0);}
                 else {analysisManager->FillNtupleDColumn(4, 2.0);}
             }
-            else if ((*scintHC2)[i]->GetProcess() == "muIoni") {analysisManager->FillNtupleDColumn(4, 4.0); }
+            else if (process == "muIoni") {analysisManager->FillNtupleDColumn(4, 4.0); }
+            else if (process == "muonNuclear"){ analysisManager->FillNtupleDColumn(4, 5.0);}
+            else if (process == "photonNuclear"){ analysisManager->FillNtupleDColumn(4, 6.0);}
+            else if (process == "protonInelastic"){ analysisManager->FillNtupleDColumn(4, 7.0);}
+            else if (process == "neutronInelastic"){ analysisManager->FillNtupleDColumn(4, 8.0);}
             else { analysisManager->FillNtupleDColumn(4, 0.0); }
 
             // column 5 ParticeflagSc2
@@ -230,6 +259,7 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             else if (temp_name == "mu+") { analysisManager->FillNtupleDColumn(5, 3.0); }
             else if (temp_name == "mu-") { analysisManager->FillNtupleDColumn(5, 4.0); }
             else if (temp_name == "proton") {analysisManager->FillNtupleDColumn(5, 5.0);}
+            else if (temp_name == "neutron") {analysisManager->FillNtupleDColumn(5, 6.0);}
             else { analysisManager->FillNtupleDColumn(5, 0.0); }
 
             // column 6
@@ -252,6 +282,18 @@ void EventAction::EndOfEventAction(const G4Event* event) {
             analysisManager->FillNtupleDColumn(9,Hit_Time-Muon_Time);
 
             analysisManager->AddNtupleRow();
+
+            // Fill the histograms for SC2
+            if (temp_name == "e+" || temp_name == "e-"){
+              if (process == "Decay"){analysisManager->FillH1(6, Hit_Time);}
+              else if (process == "muMinusCaptureAtRest") {
+                if (fNeutrinoFound){analysisManager->FillH1(8, Hit_Time);}
+                else {analysisManager->FillH1(9, Hit_Time);}
+              }
+              else if (process == "muIoni"){analysisManager->FillH1(7, Hit_Time);}
+            }
+            else if (temp_name == "proton") {analysisManager->FillH1(10, Hit_Time);}
+            else if (temp_name == "gamma") {analysisManager->FillH1(11, Hit_Time);}
 
             // reinit the values used for
             E_temp = 0.;

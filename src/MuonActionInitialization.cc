@@ -17,7 +17,7 @@ void MuonActionInitialization::BuildForMaster() const {
 
     // called by the master thread. when merging of thread results
     // is needed one should create an instance of Rn action here
-    //SetUserAction(new RunAction);
+    SetUserAction(new RunAction);
 }
 
 void MuonActionInitialization::Build() const {
