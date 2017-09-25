@@ -54,9 +54,6 @@ void EventAction::EndOfEventAction(const G4Event* event) {
         return;
     }
 
-    // Get hitastic
-G4WT0 >     1    -4.56    -69.8     28.6      4.43   0.0244     10.7      10.7   2-Copper1 hadElastic
-s collections
     // initiate all hit collections in this manner:
     ScintHitsCollection* scintHC1
             = static_cast <ScintHitsCollection*>(hce->GetHC(fSCID1));
@@ -185,18 +182,21 @@ s collections
             else { analysisManager->FillNtupleDColumn(6, 0.0); }
             //G4cout << i << "times" << G4endl;
 
-            //Scintillator number
+            // column 7 Scintillator number
             analysisManager->FillNtupleDColumn(7, 1.0);
 
 
-            // Get a sense of the angular distribution
+            // column 8 Get a sense of the angular distribution
             G4double mom = (*scintHC1)[i]->GetMomentum();
             //G4double angle = -mom.getZ();
             //G4cout << "momz: " << mom  << G4endl;
             analysisManager->FillNtupleDColumn(8, mom);
 
-            //Muon relative Time
+            // column 9 Muon relative Time
             analysisManager->FillNtupleDColumn(9,Hit_Time-Muon_Time);
+
+            // colunm 10 parent ID
+            analysisManager->FillNtupleDColumn(10, (*scintHC1)[i]->GetParent());
 
             analysisManager->AddNtupleRow();
 
@@ -278,8 +278,11 @@ s collections
             G4double mom = (*scintHC2)[i]->GetMomentum();
             analysisManager->FillNtupleDColumn(8, mom);
 
-            //Muon relative Time
+            //column 9 Muon relative Time
             analysisManager->FillNtupleDColumn(9,Hit_Time-Muon_Time);
+
+            // colunm 10 parent ID
+            analysisManager->FillNtupleDColumn(10, (*scintHC2)[i]->GetParent());
 
             analysisManager->AddNtupleRow();
 

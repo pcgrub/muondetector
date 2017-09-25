@@ -2,6 +2,7 @@ from matplotlib import pyplot as plt
 import numpy as np
 import time as t
 
+
 def sc1sc2(mat, column=7):
     """seperates input array for copper, scint1 and scint2 for volume in
     which detected for column=7 or origin volume column=6"""
@@ -9,10 +10,13 @@ def sc1sc2(mat, column=7):
         return  mat[mat[:, column] == 1], mat[mat[:, column] == 3], mat[mat[:, column] == 2]
     return  mat[mat[:, column] == 1], mat[mat[:, column] == 2], mat[mat[:, column] == 3]
 
+
 def timecoumn(mat):
     return mat[:,1]
+
+
 def write_analysis_file(data,CreationType):
-   
+
     VolumeType = np.array(["SC1", "SC2", "Cu"])
 
     now = t.strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -40,7 +44,7 @@ def write_analysis_file(data,CreationType):
     f.close()
 
 #read in files
-path = "/mnt/Daten/Documents/allnewmeasurement2017/protonmeasurement/neutron/normal/"
+path = "/Users/piet/Documents/build-muondetector/"
 
 
 data = np.empty(14, dtype=np.ndarray)
@@ -94,11 +98,7 @@ ax1.set_title("SC1")
 ax2.set_title("SC2")
 
 ax1.set_xlabel("Zeit [ns]")
-#ax1.set_ylabel("$E$ $[MeV]$")
 ax2.set_xlabel("Zeit [ns]")
-#ax2.set_ylabel("$\Delta E$ $[MeV]$")
-
-
 
 CreationType = np.array(["$e^+/e^-$ decay", "electron from muon capture", "muons",
                          "shower electron", "gamma",
@@ -116,23 +116,23 @@ ax1.set_ylim((0,nmax))
 ax2.set_xlim((0,tmax))
 ax2.set_ylim((0,nmax))
 
-#ax1.set_xscale("log")
-#ax2.set_xscale("log")
-#ax1.set_yscale("log")
-#ax2.set_yscale("log")
-
-
-
 n = 100
 bins = np.linspace(0.,tmax, n+1)
 
-
-
 #decay
+stuff_to_plot =[0,1,4,5,6,7,8,9,10,11,12]
+stack_SC1 = []
+stack_SC2 = []
+stack_label = []
+for i,val in enumerate(stuff_to_plot):
+    stack_SC1.append(sc1sc2(data[val])[0][:, 1])
+    stack_SC2.append(sc1sc2(data[val])[1][:, 1])
+    stack_label.append(CreationType[val])
 
-for i in [0,1,4,6,7,8,9,10,11,12]:
-    ax1.hist(sc1sc2(data[i])[0][:,1], bins, label=CreationType[i], stacked=True)
-    ax2.hist(sc1sc2(data[i])[1][:,1], bins , label=CreationType[i], stacked=True)
+
+ax1.hist(stack_SC1, bins, label=stack_label, stacked=True)
+ax2.hist(stack_SC2, bins, label=stack_label, stacked=True)
+
 
 print("normal decay")
 dec_times = np.append(sc1sc2(data[0])[0][:,1],sc1sc2(data[0])[0][:,1])
@@ -151,38 +151,6 @@ print ("proton mean and error: ")
 prot_times = np.append(sc1sc2(data[12])[0][:,1],sc1sc2(data[12])[0][:,1])
 print(np.mean(prot_times))
 print(np.std(prot_times)/np.sqrt(len(prot_times))) 
-#ax1.plot(primaries_Sc1[:, 1], primaries_Sc1[:, 2], 'b.', label="$\mu^+/\mu^-$", ms=3)
-#ax2.plot(primaries_Sc2[:, 1], primaries_Sc2[:, 2], 'b.', label="$\mu^+/\mu^-$", ms=3)
-
-#ax1.set_xlim(0.01, 100000)
-#ax2.set_xlim(0.01, 100000)
-#ax1.set_ylim(0.0001, 100)
-#ax2.set_ylim(0.0001, 100)
-#ax1.plot(decay_Sc1[:, 1], decay_Sc1[:, 2], 'r.', label="$e^+/e^-$(freier Zerfall)", ms=3)
-#ax2.plot(decay_Sc2[:, 1], decay_Sc2[:, 2], 'r.', label="$e^+/e^-$(freier Zerfall)", ms=3)
-
-#ax1.plot(bound_Sc1[:, 1], bound_Sc1[:, 2], 'r.', label="$e^+/e^-$(gebundener Zerfall)", ms=3)
-#ax2.plot(bound_Sc2[:, 1], bound_Sc2[:, 2], 'r.', label="$e^+/e^-$(gebundener Zerrfall)", ms=3)
-
-#ax1.plot(proton_Sc1[:, 1], proton_Sc1[:, 2], 'g.', label="Protonen", ms=3)
-#ax2.plot(proton_Sc2[:, 1], proton_Sc2[:, 2], 'g.', label="Protonen", ms=3)
-
-#ax1.plot(ioni_Sc1[:, 1], ioni_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
-#ax2.plot(ioni_Sc2[:, 1], ioni_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
-
-#ax1.plot(other_Sc1[:, 1], other_Sc1[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
-#ax2.plot(other_Sc2[:, 1], other_Sc2[:, 2], 'g.', label="$e^+/e^-$(anderer Prozess)", ms=3)
-
-#ax1.plot(capture_Sc1[:, 1], capture_Sc1[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
-#ax2.plot(capture_Sc2[:, 1], capture_Sc2[:, 2], 'b.', label="$e^-$(Einfang)", ms=3)
-
-#ax1.axhline(y=0.0006, color='k', label="Schwelle")
-#ax2.axhline(y=0.0006, color='k', label="Schwelle")
-#ax1.axvline(x=2000., color='k', linestyle="--", label="Schwelle")
-#ax2.axvline(x=2000., color='k', linestyle="--", label="Schwelle")
-
-#ax1.plot(gamma_Sc1[:, 1], gamma_Sc1[:, 3], 'b.', label="Photonen", ms=3)
-#ax2.plot(gamma_Sc2[:, 1], gamma_Sc2[:, 3], 'b.', label="Photonen", ms=3)
 
 ax1.legend(loc=1)
 ax2.legend(loc=1)

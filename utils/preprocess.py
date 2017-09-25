@@ -1,6 +1,8 @@
 import numpy as np
 
-path = "/mnt/Daten/Documents/allnewmeasurement2017/protonmeasurement/neutron/normal/"
+#path = "/mnt/Daten/Documents/allnewmeasurement2017/protonmeasurement/neutron/normal/"
+
+path="/Users/piet/Documents/build-muondetector1/"
 
 data0 = np.genfromtxt(path+"muon_Hits_nt_data_t0.csv", delimiter=",")
 data1 = np.genfromtxt(path+"muon_Hits_nt_data_t1.csv", delimiter=",")

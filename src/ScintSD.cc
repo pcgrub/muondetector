@@ -77,10 +77,11 @@ G4bool ScintSD::ProcessHits(G4Step* step, G4TouchableHistory*) {
     //time extraction from previous step
     G4StepPoint* preStepPoint = step->GetPreStepPoint();
 
+    G4int parent = track->GetParentID();
     //insert the hits of ScintHit type
     // changed for testing purpose:
     if (name == "e+" || name == "e-" || name=="gamma" || name=="proton" || name =="neutron"/*|| name == "mu+" || name == "mu-"*/) {
-        ScintHit *hit = new ScintHit(name, edep, origin, orEn, process, trackID, Momentum.z());
+      ScintHit *hit = new ScintHit(name, edep, origin, orEn, process, trackID, Momentum.z(), parent);
         hit->SetTime(preStepPoint->GetGlobalTime());
         //hit->Print();
         fHitsCollection->insert(hit);

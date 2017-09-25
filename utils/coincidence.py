@@ -13,7 +13,7 @@ def f2(t, N,tau):
     return N*np.exp(-t/tau)
 
 #read in files
-path = "/home/piet/Dokumente/allnewmeasurement2017/CSV/"
+path = "/Users/piet/Documents/build-muondetector/"
 
 decay = np.genfromtxt(path+"decay.csv", delimiter=",")
 capture = np.genfromtxt(path+"bound.csv", delimiter=",")
