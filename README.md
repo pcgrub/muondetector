@@ -8,7 +8,8 @@ Geant4 10.2 or higher, ROOT
 
 ### Compiling
 
-In order to compile the code succesfully, Geant4 has to be running in the shell.
+In order to compile the code succesfully, Geant4 has to be running in the shell.  
+
 `$ source /PATH/TO/geant4/bin/geant4.sh`
 
 Compiling the code with N being the number of available threads/cores  
