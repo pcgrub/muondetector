@@ -11,7 +11,7 @@ Geant4 10.2 or higher, ROOT
 In order to compile the code succesfully, Geant4 has to be running in the shell.
 `$ source /PATH/TO/geant4/bin/geant4.sh`
 
-Compiling the code with N being the number of available threads/cores
+Compiling the code with N being the number of available threads/cores  
 
 `$ cd /path/to/muondetector`  
 `$ mkdir ../build-muondetector`  
@@ -21,6 +21,6 @@ Compiling the code with N being the number of available threads/cores
 
 ### Running the Simulation
 
-Running the simulation without a graphical output.
+Running the simulation without a graphical output.  
 `$ cd /path/to/build-muondetector`  
 `$ ./MuonDetector run.mac`  
