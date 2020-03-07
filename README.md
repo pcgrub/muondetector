@@ -13,14 +13,14 @@ In order to compile the code succesfully, Geant4 has to be running in the shell.
 
 Compiling the code with N being the number of available threads/cores
 
-`$ cd /path/to/muondetector`
-`$ mkdir ../build-muondetector`
-`$ cd ../build-muondetector`
-`$ cmake -DGeant4_DIR=/PATH/TO/geat4/ /path/to/muondetector`
-`$ make -jN`
+`$ cd /path/to/muondetector` 
+`$ mkdir ../build-muondetector` 
+`$ cd ../build-muondetector` 
+`$ cmake -DGeant4_DIR=/PATH/TO/geat4/ /path/to/muondetector` 
+`$ make -jN` 
 
 ### Running the Simulation
 
 Running the simulation without a graphical output.
-`$ cd /path/to/build-muondetector`
-`$ ./MuonDetector run.mac`
+`$ cd /path/to/build-muondetector` 
+`$ ./MuonDetector run.mac` 
